@@ -3,6 +3,18 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const multer = require('multer');
+const { requestLogger, errorHandler } = require('./middleware/monitor');
+const fs = require('fs');
+
+// Ensure required directories exist
+const ensureDir = (dirPath) => {
+  try {
+    fs.mkdirSync(dirPath, { recursive: true });
+  } catch {}
+};
+
+ensureDir(path.join(__dirname, 'logs'));
+ensureDir(path.join(__dirname, 'uploads'));
 
 const app = express();
 
@@ -17,6 +29,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(requestLogger);
 
 // 根路由 - 提供主頁面
 app.get('/', (req, res) => {
@@ -36,10 +49,7 @@ const monitorRouter = require('./routes/monitor');
 app.use('/api/monitor', monitorRouter);
 
 // 錯誤處理
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: '服務器錯誤' });
-});
+app.use(errorHandler);
 
 // 啟動服務器
 const port = process.env.PORT || 3001;

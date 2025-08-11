@@ -2,17 +2,12 @@
   "name": "phone-rental-system",
   "version": "1.0.0",
   "description": "手機租賃管理系統",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
-    "start:safe": "node start-safe.js",
-    "dev": "nodemon --watch server.js --watch routes/ --watch middleware/ --watch utils/ --watch services/ index.js",
-    "dev:safe": "DISABLE_LOG_CLEANUP=true nodemon --watch server.js --watch routes/ --watch middleware/ --watch utils/ --watch services/ index.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "check": "node check-data.js",
-    "verify": "node verify-cleanup-disabled.js",
-    "monitor": "node monitor-data.js"
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "rental",
