@@ -1,0 +1,1015 @@
+{
+  "sales": [
+    {
+      "id": "1746773292414",
+      "name": "ipayloan009",
+      "appleAccount": "ipayloan009@icloud.com",
+      "applePassword": "Qazplm1285",
+      "passwordLogs": [
+        {
+          "date": "2025-05-09T06:48:12.414Z",
+          "password": "Qazplm1285"
+        }
+      ],
+      "phone": "0966124579",
+      "findPhone": "NZEQ-DWSQ-U98E-8H5C-L4FX-EC3Q-8Q8G"
+    },
+    {
+      "id": "1746774964553",
+      "name": "ipayloan",
+      "appleAccount": "ipayloan@icloud.com",
+      "applePassword": "Qazplm6732",
+      "passwordLogs": [
+        {
+          "date": "2025-05-09T07:16:04.553Z",
+          "password": "Qazplm6732"
+        }
+      ],
+      "phone": "0966124579",
+      "findPhone": "0987547485"
+    },
+    {
+      "id": "1746776755538",
+      "name": "ipayloan008",
+      "appleAccount": "ipayloan008@icloud.com",
+      "applePassword": "Qazplm7452",
+      "phone": "0983680123",
+      "findPhone": "ECNS-CZGZ-F3TC-DYG7-NUPU-Q7KR-E2SK",
+      "passwordLogs": [
+        {
+          "date": "2025-05-09T07:45:55.538Z",
+          "password": "Qazplm7452"
+        }
+      ]
+    }
+  ],
+  "customers": [
+    {
+      "id": "1746673887450",
+      "name": "黃勁友",
+      "idNumber": "R124235957",
+      "phone": "0975502851",
+      "model": "iPhone 13 Pro Max 512GB",
+      "imei": "352051691404278",
+      "serialNumber": "XY6C6029N2",
+      "screenPassword": "4856",
+      "address": "臺南市七股區中寮里2鄰中寮72號",
+      "currentAddress": "臺南市七股區中寮里2鄰中寮72號",
+      "contractDate": "2025-05-03",
+      "salePrice": "9200",
+      "rent": "2900",
+      "bank": "玉山銀行",
+      "bankAccountName": "徐詩婷",
+      "bankAccountNumber": "0428979170204",
+      "paymentCycleDays": "7",
+      "status": "locked",
+      "createdAt": "2025-05-08T03:11:27.451Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-03T00:00:00.000Z",
+          "amount": 2900
+        }
+      ],
+      "nextDueOverride": "2025-05-10T00:00:00.000Z",
+      "salesId": "1746776755538"
+    },
+    {
+      "id": "1746674140503",
+      "name": "郭再益",
+      "idNumber": "M122573727",
+      "phone": "0905522601",
+      "model": "iPhone 16 Pro 256GB",
+      "imei": "357592310462572",
+      "serialNumber": "D9674304TJ",
+      "screenPassword": "1122",
+      "address": "南投市彰南路三段398巷23號",
+      "currentAddress": "南投市彰南路三段398巷23號",
+      "contractDate": "2025-04-22",
+      "salePrice": "23000",
+      "rent": "8000",
+      "bank": "中國信託",
+      "bankAccountName": "郭春慧",
+      "bankAccountNumber": "159540487830",
+      "paymentCycleDays": "18",
+      "status": "buyback",
+      "createdAt": "2025-05-08T03:15:40.503Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-04-22T00:00:00.000Z",
+          "amount": 8000,
+          "note": ""
+        },
+        {
+          "date": "2025-06-18T00:00:00.000Z",
+          "amount": 27500,
+          "note": ""
+        }
+      ],
+      "nextDueOverride": "2025-05-10T00:00:00.000Z",
+      "salesId": "1746774964553",
+      "periodOverrides": [
+        {
+          "period": 2,
+          "due": "2025-05-12"
+        },
+        {
+          "period": 3,
+          "due": "2025-05-27"
+        }
+      ]
+    },
+    {
+      "id": "1746674356406",
+      "name": "謝易霖",
+      "idNumber": "A129246705",
+      "phone": "0979685375",
+      "model": "iPhone 12 128GB",
+      "imei": "352045136239075",
+      "serialNumber": "G6TF30RA0F13",
+      "screenPassword": "",
+      "address": "台北市北投區東華街二段294號6樓",
+      "currentAddress": "台北市北投區東華街二段294號6樓",
+      "contractDate": "2025-04-23",
+      "salePrice": "6000",
+      "rent": "2000",
+      "bank": "國泰世華",
+      "bankAccountName": "謝易霖",
+      "bankAccountNumber": "129506216926",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-08T03:19:16.406Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-08T03:19:50.851Z",
+          "amount": 6000
+        },
+        {
+          "date": "2025-05-08T03:22:14.566Z",
+          "amount": 2000
+        }
+      ],
+      "salesId": "1746774964553"
+    },
+    {
+      "id": "1746676524364",
+      "name": "謝易霖",
+      "idNumber": "A129246705",
+      "phone": "0979685375",
+      "model": "iPhone 12 128GB",
+      "imei": "352045136239075",
+      "serialNumber": "G6TF30RA0F13",
+      "screenPassword": "4968",
+      "address": "台北市北投區東華街二段294號6樓",
+      "currentAddress": "台北市北投區東華街二段294號6樓",
+      "contractDate": "2025-05-04",
+      "salePrice": "6000",
+      "rent": "1500",
+      "bank": "國泰世華",
+      "bankAccountName": "謝易霖",
+      "bankAccountNumber": "129506216926",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-08T03:55:24.364Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-04T00:00:00.000Z",
+          "amount": 1500
+        },
+        {
+          "date": "2025-05-11T00:00:00.000Z",
+          "amount": 6000,
+          "note": ""
+        }
+      ],
+      "salesId": "1746776755538"
+    },
+    {
+      "id": "1746679530446",
+      "name": "葉斯元",
+      "idNumber": "J121777498",
+      "phone": "0978226108",
+      "model": "iPhone 16 Pro Max 256GB",
+      "imei": "356727112613144",
+      "serialNumber": "HKHM3V2WFF",
+      "screenPassword": "8467",
+      "address": "新竹縣竹東鎮柯湖路一段114號",
+      "currentAddress": "新竹縣竹東鎮柯湖路一段114號",
+      "contractDate": "2025-05-08",
+      "salePrice": "20000",
+      "rent": "6000",
+      "bank": "中華郵政",
+      "bankAccountName": "董福添",
+      "bankAccountNumber": "00614780838001",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-08T04:45:30.446Z",
+      "idFront": "d57288e90ac165c1eb219a0776a1c06e",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-14T00:00:00.000Z",
+          "amount": 6000
+        },
+        {
+          "date": "2025-05-14T00:00:00.000Z",
+          "amount": 20000,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414"
+    },
+    {
+      "id": "1746684496637",
+      "name": "吳正友",
+      "idNumber": "V121749770",
+      "phone": "0903102753",
+      "model": "iPhone 14 Pro 128GB",
+      "imei": "353730793430294",
+      "serialNumber": "GV7GGV2LT4",
+      "screenPassword": "1258",
+      "address": "台東縣台東市豐榮路86巷25號",
+      "currentAddress": "台東縣台東市豐榮路86巷25號",
+      "contractDate": "2025-05-08",
+      "salePrice": "11800",
+      "rent": "3500",
+      "bank": "中華郵政",
+      "bankAccountName": "曹梓琳",
+      "bankAccountNumber": "02611030096093",
+      "paymentCycleDays": "7",
+      "status": "locked",
+      "createdAt": "2025-05-08T06:08:16.637Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "d64c8f000e1c6a38e15271acc3ac5568",
+      "payments": [
+        {
+          "date": "2025-05-08T00:00:00.000Z",
+          "amount": 3500,
+          "note": ""
+        }
+      ],
+      "salesId": "1746776755538"
+    },
+    {
+      "id": "1746686057096",
+      "name": "吳正友",
+      "idNumber": "V121749770",
+      "phone": "0903102753",
+      "model": "iPhone 14 Pro 128GB",
+      "imei": "353730793430294",
+      "serialNumber": "GV7GGV2LT4",
+      "screenPassword": "1258",
+      "address": "台東縣台東市豐榮路86巷25號",
+      "currentAddress": "台東縣台東市豐榮路86巷25號",
+      "contractDate": "2025-05-02",
+      "salePrice": "9800",
+      "rent": "3200",
+      "bank": "中華郵政",
+      "bankAccountName": "曹梓琳",
+      "bankAccountNumber": "02611030096093",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-08T06:34:17.096Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-08T06:34:52.061Z",
+          "amount": 3200
+        },
+        {
+          "date": "2025-05-08T06:35:00.601Z",
+          "amount": 9800
+        }
+      ],
+      "salesId": "1746776755538"
+    },
+    {
+      "id": "1746686699515",
+      "name": "黃美璇",
+      "idNumber": "E224621062",
+      "phone": "0903324105",
+      "model": "iPhone 13 128GB",
+      "imei": "356858903740588",
+      "serialNumber": "DMYPL62XDF",
+      "screenPassword": "",
+      "address": "高雄市楠梓區右昌忠義六巷34號",
+      "currentAddress": "高雄市楠梓區右昌忠義六巷34號",
+      "contractDate": "2025-04-27",
+      "salePrice": "7000",
+      "rent": "2000",
+      "bank": "中國信託",
+      "bankAccountName": "黃怡心",
+      "bankAccountNumber": "613540511093",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-08T06:44:59.515Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-08T06:45:09.440Z",
+          "amount": 2000
+        },
+        {
+          "date": "2025-05-08T06:45:15.559Z",
+          "amount": 7000
+        }
+      ],
+      "salesId": "1746774964553"
+    },
+    {
+      "id": "1746706486032",
+      "name": "曾妤涵",
+      "idNumber": "T225009188",
+      "phone": "0917370103",
+      "model": "iPhone 16 256GB",
+      "imei": "358964586726171",
+      "serialNumber": "C4CNPQ7K6C",
+      "screenPassword": "2961",
+      "address": "屏東縣長治鄉復興路276號之4",
+      "currentAddress": "屏東縣長治鄉復興路276號之4",
+      "contractDate": "2025-05-08",
+      "salePrice": "11000",
+      "rent": "3600",
+      "bank": "華南 屏東",
+      "bankAccountName": "曾妤涵",
+      "bankAccountNumber": "800200277647",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-08T12:14:46.032Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-08T12:20:58.970Z",
+          "amount": 3600
+        },
+        {
+          "date": "2025-05-16T00:00:00.000Z",
+          "amount": 1000,
+          "note": ""
+        },
+        {
+          "date": "2025-05-20T00:00:00.000Z",
+          "amount": 11000,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414"
+    },
+    {
+      "id": "1746767670222",
+      "name": "呂順益",
+      "idNumber": "H122632880",
+      "phone": "0981305190",
+      "model": "iPhone 13 mini 128GB",
+      "imei": "352929594651949",
+      "serialNumber": "VHNWV377F4",
+      "screenPassword": "5211",
+      "address": "桃園市桃園區中成里6鄰文中一路300巷18號",
+      "currentAddress": "桃園市龜山區明德路260-1號",
+      "contractDate": "2025-04-27",
+      "salePrice": "5000",
+      "rent": "1500",
+      "bank": "中國信託",
+      "bankAccountName": "施柏勳",
+      "bankAccountNumber": "439540072156",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-09T05:14:30.222Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-09T05:16:51.120Z",
+          "amount": 1500
+        },
+        {
+          "date": "2025-05-09T05:17:27.168Z",
+          "amount": 5000
+        }
+      ],
+      "salesId": "1746774964553"
+    },
+    {
+      "id": "1746768005489",
+      "name": "呂順益",
+      "idNumber": "H122632880",
+      "phone": "0981305190",
+      "model": "iPhone 13 mini 128GB",
+      "imei": "352929594651949",
+      "serialNumber": "VHNWV377F4",
+      "screenPassword": "3617",
+      "address": "桃園市桃園區中成里6鄰文中一路300巷18號",
+      "currentAddress": "桃園市龜山區明德路260-1號",
+      "contractDate": "2025-05-05",
+      "salePrice": "6000",
+      "rent": "1600",
+      "bank": "中國信託",
+      "bankAccountName": "施柏勳",
+      "bankAccountNumber": "439540072156",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-09T05:20:05.489Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-05T00:00:00.000Z",
+          "amount": 1600
+        },
+        {
+          "date": "2025-05-21T00:00:00.000Z",
+          "amount": 6000,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414",
+      "nextDueOverride": "2025-05-12T00:00:00.000Z"
+    },
+    {
+      "id": "1746768193392",
+      "name": "施佳宏",
+      "idNumber": "A127793130",
+      "phone": "0925626727",
+      "model": "iPhone 12 Pro Max 128GB",
+      "imei": "356728110882988",
+      "serialNumber": "G6TDH0NL0D51",
+      "screenPassword": "6332",
+      "address": "台北市中正區青島東路25號4樓之1",
+      "currentAddress": "台北市中正區青島東路25號4樓之1",
+      "contractDate": "2025-04-30",
+      "salePrice": "7000",
+      "rent": "2000",
+      "bank": "中國信託",
+      "bankAccountName": "施佳宏",
+      "bankAccountNumber": "901620398246",
+      "paymentCycleDays": "7",
+      "status": "locked",
+      "createdAt": "2025-05-09T05:23:13.392Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-04-30T00:00:00.000Z",
+          "amount": 2000
+        },
+        {
+          "date": "2025-05-09T05:23:43.634Z",
+          "amount": 2000
+        },
+        {
+          "date": "2025-05-15T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-05-15T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-05-23T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-05-23T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-06-11T00:00:00.000Z",
+          "amount": 200,
+          "note": ""
+        },
+        {
+          "date": "2025-06-24T00:00:00.000Z",
+          "amount": 2200,
+          "note": ""
+        }
+      ],
+      "salesId": "1746774964553",
+      "nextDueOverride": "2025-05-29T00:00:00.000Z"
+    },
+    {
+      "id": "1746768441187",
+      "name": "廖俊棋",
+      "idNumber": "M121761652",
+      "phone": "0937089555",
+      "model": "iPhone 13 128GB",
+      "imei": "356557845654986",
+      "serialNumber": "GH4JK6NDVF",
+      "screenPassword": "2568",
+      "address": "新北市貢寮區貢寮里9鄰朝陽街6號",
+      "currentAddress": "新北市平溪區十分街83號",
+      "contractDate": "2025-05-01",
+      "salePrice": "7000",
+      "rent": "2000",
+      "bank": "彰化銀行",
+      "bankAccountName": "廖俊棋",
+      "bankAccountNumber": "55435002790700",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-09T05:27:21.187Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-01T00:00:00.000Z",
+          "amount": 2000
+        },
+        {
+          "date": "2025-05-09T05:27:36.683Z",
+          "amount": 2000
+        },
+        {
+          "date": "2025-05-17T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-05-29T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-07-15T00:00:00.000Z",
+          "amount": 4000,
+          "note": ""
+        },
+        {
+          "date": "2025-08-08T00:00:00.000Z",
+          "amount": 7000,
+          "note": ""
+        },
+        {
+          "date": "2025-08-08",
+          "amount": "7000",
+          "type": "buyback",
+          "note": "買回價金"
+        }
+      ],
+      "salesId": "1746774964553",
+      "nextDueOverride": "2025-05-24T00:00:00.000Z"
+    },
+    {
+      "id": "1746771339561",
+      "name": "曹梓琳",
+      "idNumber": "V221643935",
+      "phone": "0983119780",
+      "model": "iPhone 12 Pro 128GB",
+      "imei": "352622999234244",
+      "serialNumber": "G6TG116R0D8Y",
+      "screenPassword": "2849",
+      "address": "台東縣鹿野鄉鹿野村福佑路8巷19號",
+      "currentAddress": "台東縣鹿野鄉鹿野村福佑路8巷19號",
+      "contractDate": "2025-05-05",
+      "salePrice": "13100",
+      "rent": "4100",
+      "bank": "中華郵政",
+      "bankAccountName": "曹梓琳",
+      "bankAccountNumber": "02611030096093",
+      "paymentCycleDays": "7",
+      "status": "locked",
+      "createdAt": "2025-05-09T06:15:39.561Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-05T00:00:00.000Z",
+          "amount": 4100,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414",
+      "nextDueOverride": "2025-05-12T00:00:00.000Z"
+    },
+    {
+      "id": "1746771575070",
+      "name": "劉得鈺",
+      "idNumber": "J122393549",
+      "phone": "0987305663",
+      "model": "iPhone 13 128GB",
+      "imei": "354196923744773",
+      "serialNumber": "V3WW6G9439",
+      "screenPassword": "4726",
+      "address": "新竹縣芎林鄉文林村10鄰紙寮窩13號",
+      "currentAddress": "新竹縣芎林鄉文林村10鄰紙寮窩13號",
+      "contractDate": "2025-05-06",
+      "salePrice": "5000",
+      "rent": "1500",
+      "bank": "中華郵政",
+      "bankAccountName": "梁瀞文",
+      "bankAccountNumber": "00615240188857",
+      "paymentCycleDays": "7",
+      "status": "locked",
+      "createdAt": "2025-05-09T06:19:35.070Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-06T00:00:00.000Z",
+          "amount": 1500,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414",
+      "nextDueOverride": "2025-05-13T00:00:00.000Z"
+    },
+    {
+      "id": "1746771885152",
+      "name": "高詩媛",
+      "idNumber": "F223696959",
+      "phone": "0909422049",
+      "model": "iPhone 12 Pro Max 128GB",
+      "imei": "355018178109438",
+      "serialNumber": "G6TG22L10D52",
+      "screenPassword": "3475",
+      "address": "新北市烏來區信賢里7鄰信福路115號",
+      "currentAddress": "台中市和平區梨山里復興路光華巷9號",
+      "contractDate": "2025-05-07",
+      "salePrice": "6000",
+      "rent": "2000",
+      "bank": "中華郵政",
+      "bankAccountName": "高詩媛",
+      "bankAccountNumber": "03115550073856",
+      "paymentCycleDays": "7",
+      "status": "locked",
+      "createdAt": "2025-05-09T06:24:45.152Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-07T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414"
+    },
+    {
+      "id": "1746772230047",
+      "name": "顏嘉宏",
+      "idNumber": "E125708379",
+      "phone": "0960937300",
+      "model": "iPhone 14 128GB",
+      "imei": "356852886292220",
+      "serialNumber": "J7N902NJLJ",
+      "screenPassword": "7519",
+      "address": "高雄市鳳山區保安里3鄰南華路東巷75弄6號",
+      "currentAddress": "桃園市平鎮區工業西路25號",
+      "contractDate": "2025-05-07",
+      "salePrice": "7000",
+      "rent": "2500",
+      "bank": "中華郵政",
+      "bankAccountName": "顏嘉宏",
+      "bankAccountNumber": "02813400396337",
+      "paymentCycleDays": "7",
+      "status": "buyback",
+      "createdAt": "2025-05-09T06:30:30.047Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-07T00:00:00.000Z",
+          "amount": 2500,
+          "note": ""
+        },
+        {
+          "date": "2025-05-14T00:00:00.000Z",
+          "amount": 7000,
+          "note": ""
+        },
+        {
+          "date": "2025-05-20T00:00:00.000Z",
+          "amount": 2500,
+          "note": ""
+        }
+      ],
+      "salesId": "1746773292414"
+    },
+    {
+      "id": "1746794622297",
+      "name": "許益興",
+      "idNumber": "A129048585",
+      "phone": "0958451263",
+      "model": "iPhone 14 Plus 128GB",
+      "imei": "359893879386055",
+      "serialNumber": "R6FYTX39MD",
+      "screenPassword": "4209",
+      "address": "台中市神岡區大社街118號8樓",
+      "currentAddress": "台中市神岡區大社街118號8樓",
+      "contractDate": "2025-05-09",
+      "salePrice": "8800",
+      "rent": "2500",
+      "bank": "郵政 神岡岸裡",
+      "bankAccountName": "許藝蓁",
+      "bankAccountNumber": "01411210143732",
+      "paymentCycleDays": "7",
+      "salesId": "1746773292414",
+      "status": "buyback",
+      "createdAt": "2025-05-09T12:43:42.297Z",
+      "idFront": "0019a559e1c5775950c7791acbc048f3",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-09T00:00:00.000Z",
+          "amount": 2500,
+          "note": ""
+        },
+        {
+          "date": "2025-05-19T00:00:00.000Z",
+          "amount": 11300,
+          "note": ""
+        }
+      ],
+      "nextDueOverride": "2025-05-16T00:00:00.000Z"
+    },
+    {
+      "id": "1746798053512",
+      "name": "許桓維",
+      "idNumber": "B123128218",
+      "phone": "0930300973",
+      "model": "iPhone 13 128GB",
+      "imei": "359214467689513",
+      "serialNumber": "P9KC7DV40Q",
+      "screenPassword": "2671",
+      "address": "台中市東區建成路370巷39弄7號",
+      "currentAddress": "台中市東區建成路370巷39弄7號",
+      "contractDate": "2025-05-09",
+      "salePrice": "6000",
+      "rent": "2000",
+      "bank": "郵政 臺中公益路",
+      "bankAccountName": "許桓維",
+      "bankAccountNumber": "00214070586642",
+      "paymentCycleDays": "7",
+      "salesId": "1746773292414",
+      "status": "buyback",
+      "createdAt": "2025-05-09T13:40:53.512Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-09T00:00:00.000Z",
+          "amount": 2000,
+          "note": ""
+        },
+        {
+          "date": "2025-08-04",
+          "amount": "6000",
+          "type": "buyback",
+          "note": "買回價金"
+        }
+      ],
+      "nextDueOverride": "2025-05-17T00:00:00.000Z"
+    },
+    {
+      "id": "1747040138423",
+      "name": "楊閎圻",
+      "idNumber": "W100304933",
+      "phone": "0966699616",
+      "model": "iPhone 12 128GB",
+      "imei": "353058119706001",
+      "serialNumber": "G6TDL09Z0F12",
+      "screenPassword": "8547",
+      "address": "金門縣金寧鄉榜林村116-1號",
+      "currentAddress": "金門縣金寧鄉榜林村116-1號",
+      "contractDate": "2025-05-04",
+      "salePrice": "4000",
+      "rent": "1200",
+      "bank": "中華郵政",
+      "bankAccountName": "楊閎圻",
+      "bankAccountNumber": "00028420801157",
+      "paymentCycleDays": "7",
+      "salesId": "1746776755538",
+      "status": "locked",
+      "createdAt": "2025-05-12T08:55:38.423Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-04T00:00:00.000Z",
+          "amount": 1200,
+          "note": ""
+        }
+      ],
+      "nextDueOverride": "2025-05-11T00:00:00.000Z"
+    },
+    {
+      "id": "1747899428355",
+      "name": "黃美璇",
+      "idNumber": "E224621062",
+      "phone": "0903324105",
+      "model": "iPhone 13 128GB",
+      "imei": "356858903740588",
+      "serialNumber": "DMYPL62XDF",
+      "screenPassword": "2568 ",
+      "address": "高雄市楠梓區右昌忠義六巷34號",
+      "currentAddress": "高雄市楠梓區右昌忠義六巷34號",
+      "contractDate": "2025-05-22",
+      "salePrice": "7000",
+      "rent": "1500",
+      "bank": "中國信託",
+      "bankAccountName": "黃怡心",
+      "bankAccountNumber": "613540511093",
+      "paymentCycleDays": "7",
+      "salesId": "1746774964553",
+      "status": "buyback",
+      "createdAt": "2025-05-22T07:37:08.355Z",
+      "idFront": "3609b5013d1d624b2e9df2e427448082",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-22T00:00:00.000Z",
+          "amount": 1500,
+          "note": ""
+        },
+        {
+          "date": "2025-05-27",
+          "amount": "7000",
+          "type": "buyback",
+          "note": "買回價金"
+        }
+      ]
+    },
+    {
+      "id": "1747906039314",
+      "name": "黃昱融",
+      "idNumber": "V121766815",
+      "phone": "0963805819",
+      "model": "iPhone 14 Pro 128GB",
+      "imei": "351740761787023",
+      "serialNumber": "QRF7KH9X2C",
+      "screenPassword": "4569",
+      "address": "台東縣台東市新園里11鄰中興路六段865巷19之1號",
+      "currentAddress": "台東縣台東市新園里11鄰中興路六段865巷19之1號",
+      "contractDate": "2025-05-22",
+      "salePrice": "8000",
+      "rent": "2500",
+      "bank": "玉山銀行",
+      "bankAccountName": "黃昱融",
+      "bankAccountNumber": "0716979181400 808",
+      "paymentCycleDays": "7",
+      "salesId": "1746774964553",
+      "status": "locked",
+      "createdAt": "2025-05-22T09:27:19.314Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-05-22T00:00:00.000Z",
+          "amount": 2500,
+          "note": ""
+        }
+      ],
+      "nextDueOverride": "2025-05-29T00:00:00.000Z"
+    },
+    {
+      "id": "1754370522903",
+      "name": "林琮欽",
+      "idNumber": "R123822563",
+      "phone": "0979637168",
+      "birthday": "1989-03-29",
+      "occupation": "台積電外包",
+      "source": "FACEBOOK",
+      "emergencyContactName": "",
+      "emergencyContactPhone": "",
+      "model": "iPhone 16 Pro Max 256GB",
+      "imei": "359844768762682",
+      "serialNumber": "L1QWVXY26Y",
+      "screenPassword": "9963",
+      "city": "台南市",
+      "district": "新市區",
+      "street": "社內里139號",
+      "currentAddress": "台南市將軍區長榮里4鄰長榮92號",
+      "contractDate": "2025-08-05",
+      "paymentCycleDays": "7",
+      "salePrice": "20000",
+      "rent": "5950",
+      "bank": "中華郵政",
+      "bankAccountName": "林玉珠",
+      "bankAccountNumber": "01912920078148",
+      "salesId": "1746774964553",
+      "address": "台南市新市區社內里139號",
+      "status": "renting",
+      "createdAt": "2025-08-05T05:08:42.903Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-08-05T00:00:00.000Z",
+          "amount": 5950,
+          "note": ""
+        },
+        {
+          "date": "2025-08-07",
+          "amount": "20000",
+          "type": "buyback",
+          "note": "買回價金"
+        }
+      ],
+      "firstDealDate": "2025-08-05",
+      "dealCount": 1,
+      "isNameMatch": false
+    },
+    {
+      "id": "1754650460906",
+      "name": "伊勢佳真",
+      "idNumber": "E260008967",
+      "phone": "0989124531",
+      "birthday": "1995-05-31",
+      "occupation": "釣蝦場櫃檯",
+      "source": "",
+      "emergencyContactName": "",
+      "emergencyContactPhone": "",
+      "city": "新北市",
+      "district": "新店區",
+      "street": "德安里20鄰安豐路9號",
+      "currentAddress": "高雄市前鎮區瑞興街210之3號",
+      "model": "iPhone 12 128GB",
+      "imei": "359708823564617",
+      "serialNumber": "G6TDW3BL0F11",
+      "screenPassword": "5643",
+      "contractDate": "2025-08-08",
+      "paymentCycleDays": "7",
+      "salePrice": "5000",
+      "rent": "1505",
+      "bank": "中國信託",
+      "bankAccountName": "趙晏翎",
+      "bankAccountNumber": "901563448745",
+      "salesId": "1746774964553",
+      "address": "新北市新店區德安里20鄰安豐路9號",
+      "status": "renting",
+      "createdAt": "2025-08-08T10:54:20.906Z",
+      "idFront": "5fed9ed4cbfdc7c5876f0774eb095819",
+      "idBack": "9850685e8fd00efa60bedc01fce2bdb0",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [
+        {
+          "date": "2025-08-08T00:00:00.000Z",
+          "amount": 1505,
+          "note": ""
+        }
+      ],
+      "firstDealDate": "2025-08-08",
+      "dealCount": 1,
+      "isNameMatch": false
+    }
+  ]
+}

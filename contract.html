@@ -1,0 +1,396 @@
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
+  }
+  .contract-page {
+    width: 800px;
+    height: 1131px;
+    margin: 24px auto;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    box-shadow: 0 8px 32px #0002;
+    border-radius: 12px;
+    display: none;
+  }
+  .contract-page.active {
+    display: block;
+  }
+  .contract-field {
+    position: absolute;
+    font-size: 13px;
+    color: #222;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background: transparent;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+  #sellerIdField1, #sellerIdField2,
+  #phoneModelField,
+  #totalPriceField,
+  #accountNameField,
+  #accountNumberField,
+  #sellerAddressField {
+    font-size: 13px;
+  }
+  .contract-nav {
+    text-align: center;
+    margin: 12px 0 0 0;
+  }
+  .contract-nav button {
+    padding: 8px 24px;
+    margin: 0 12px;
+    border-radius: 20px;
+    border: none;
+    background: #3498db;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .contract-nav button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  .field-draggable {
+    outline: 2px dashed #e67e22;
+    cursor: move;
+    z-index: 10;
+  }
+  .field-coord-label {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: #222;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+  #adjust-toolbar {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px #0002;
+    padding: 12px 18px;
+    z-index: 1000;
+    font-size: 16px;
+  }
+  #adjust-toolbar button {
+    margin-right: 8px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: none;
+    background: #e67e22;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  #adjust-toolbar button.active {
+    background: #27ae60;
+  }
+</style>
+
+<!-- PAGE1 -->
+<div id="contract-page1" class="contract-page active">
+  <img src="PAGE/page1.jpg" class="contract-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;" />
+  <span id="sellerNameField" class="contract-field" style="top:171px;left:183px;"></span>
+  <span id="sellerIdField1" class="contract-field" style="top:994px;left:201px;"></span>
+  <span id="sellerIdField2" class="contract-field" style="top:170.99px;left:449.993px;"></span>
+  <span id="sellerAddressField" class="contract-field" style="top:210px;left:183px;"></span>
+  <span id="phoneModelField" class="contract-field" style="top:364.993px;left:219.997px;"></span>
+  <span id="imeiField" class="contract-field" style="top:364.99px;left:481.983px;"></span>
+  <span id="totalPriceField" class="contract-field" style="top:507px;left:265px;"></span>
+  <span id="bankField" class="contract-field" style="top:600px;left:212.969px;"></span>
+  <span id="accountNameField" class="contract-field" style="top:600px;left:404px;"></span>
+  <span id="accountNumberField" class="contract-field" style="top:600px;left:554px;"></span>
+  <span id="contractYearField" class="contract-field" style="top:1040px;left:258px;"></span>
+  <span id="contractMonthField" class="contract-field" style="top:1040px;left:439px;"></span>
+  <span id="contractDayField" class="contract-field" style="top:1040px;left:608px;"></span>
+</div>
+<!-- PAGE2 -->
+<div id="contract-page2" class="contract-page">
+  <img src="PAGE/page2.jpg" class="contract-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;" />
+  <span id="customerNameField2" class="contract-field" style="top:106px;left:212px;"></span>
+  <span id="customerIdField2" class="contract-field" style="top:979px;left:197px;"></span>
+  <span id="customerAddressField2" class="contract-field" style="top:1006px;left:147px;"></span>
+  <span id="rentField2" class="contract-field" style="top:322px;left:262px;"></span>
+  <span id="totalPriceField2" class="contract-field" style="top:216px;left:595px;"></span>
+  <span id="phoneModelField2" class="contract-field" style="top:216px;left:221px;"></span>
+  <span id="imeiField2" class="contract-field" style="top:216px;left:424px;"></span>
+  <span id="nextDueYearField2" class="contract-field" style="top:285px;left:488px;"></span>
+  <span id="nextDueMonthField2" class="contract-field" style="top:285px;left:546px;"></span>
+  <span id="nextDueDayField2" class="contract-field" style="top:286px;left:589px;"></span>
+  <span id="contractYearField2_1" class="contract-field" style="top:286px;left:276px;"></span>
+  <span id="contractMonthField2_1" class="contract-field" style="top:287px;left:333px;"></span>
+  <span id="contractDayField2_1" class="contract-field" style="top:287px;left:376px;"></span>
+  <span id="contractYearField2_2" class="contract-field" style="top:1040px;left:260px;"></span>
+  <span id="contractMonthField2_2" class="contract-field" style="top:1040px;left:446px;"></span>
+  <span id="contractDayField2_2" class="contract-field" style="top:1040px;left:625px;"></span>
+</div>
+<!-- PAGE3 -->
+<div id="contract-page3" class="contract-page">
+  <img src="PAGE/page3.jpg" class="contract-bg" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;" />
+  <span id="signerIdField" class="contract-field" style="top:962px;left:203px;"></span>
+  <span id="contractYearField3" class="contract-field" style="top:1081px;left:281px;"></span>
+  <span id="contractMonthField3" class="contract-field" style="top:1081px;left:444px;"></span>
+  <span id="contractDayField3" class="contract-field" style="top:1081px;left:592px;"></span>
+</div>
+<div class="contract-nav">
+  <button id="prevPageBtn">上一頁</button>
+  <button id="nextPageBtn">下一頁</button>
+  <button id="downloadPdfBtn" style="background:#27ae60;">下載 PDF</button>
+</div>
+<div id="adjust-toolbar">
+  <button id="toggleAdjustBtn">定位模式</button>
+  <button id="copyCoordBtn">複製座標</button>
+  <span id="adjustTip" style="color:#888;font-size:14px;"></span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+<script>
+  let currentPage = 1;
+  let adjustMode = false;
+  let dragTarget = null, dragOffsetX = 0, dragOffsetY = 0;
+
+  function showContractPage(page) {
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('contract-page'+i).classList.remove('active');
+    }
+    document.getElementById('contract-page'+page).classList.add('active');
+    document.getElementById('prevPageBtn').disabled = page === 1;
+    document.getElementById('nextPageBtn').disabled = page === 3;
+    currentPage = page;
+  }
+  document.getElementById('prevPageBtn').onclick = () => showContractPage(currentPage-1);
+  document.getElementById('nextPageBtn').onclick = () => showContractPage(currentPage+1);
+
+  function toROC(dateStr) {
+    const d = new Date(dateStr);
+    const y = d.getFullYear() - 1911;
+    const m = d.getMonth() + 1;
+    const day = d.getDate();
+    return { y, m, day };
+  }
+
+  function getNextDueDate(customer) {
+    const contractDate = new Date(customer.contractDate || customer.contractStartDate);
+    const cycle = Number(customer.paymentCycleDays) || 30;
+    const rent = Number(customer.rent);
+    const payments = (customer.payments || []).map(p => Number(p.amount));
+    let totalPaid = payments.reduce((sum, amt) => sum + amt, 0);
+    let periodStart = new Date(contractDate);
+    let periodEnd = new Date(contractDate);
+    let now = new Date();
+    while (true) {
+      periodEnd = new Date(periodStart);
+      periodEnd.setDate(periodEnd.getDate() + cycle - 1);
+      let paid = Math.min(totalPaid, rent);
+      let isPaid = paid >= rent;
+      if (!isPaid || periodEnd >= now) {
+        let nextDue = new Date(periodEnd);
+        nextDue.setDate(nextDue.getDate() + 1);
+        return nextDue;
+      }
+      totalPaid -= paid;
+      if (totalPaid < 0) totalPaid = 0;
+      periodStart = new Date(periodEnd);
+      periodStart.setDate(periodStart.getDate() + 1);
+    }
+  }
+
+  function generateContract(customer) {
+    window.currentCustomer = customer;
+    // PAGE1
+    document.getElementById('sellerNameField').textContent = customer.name;
+    document.getElementById('sellerIdField1').textContent = customer.idNumber;
+    document.getElementById('sellerIdField2').textContent = customer.idNumber;
+    document.getElementById('sellerAddressField').textContent = customer.address;
+    document.getElementById('phoneModelField').textContent = customer.model || customer.phoneModel;
+    document.getElementById('imeiField').textContent = customer.imei;
+    document.getElementById('totalPriceField').textContent = customer.salePrice;
+    document.getElementById('bankField').textContent = customer.bank;
+    document.getElementById('accountNameField').textContent = customer.bankAccountName;
+    document.getElementById('accountNumberField').textContent = customer.bankAccountNumber;
+    // 合約日期（民國年、月、日）
+    const roc = toROC(customer.contractDate || customer.contractStartDate);
+    document.getElementById('contractYearField').textContent = roc.y;
+    document.getElementById('contractMonthField').textContent = roc.m;
+    document.getElementById('contractDayField').textContent = roc.day;
+    // PAGE2
+    document.getElementById('customerNameField2').textContent = customer.name;
+    document.getElementById('customerIdField2').textContent = customer.idNumber;
+    document.getElementById('customerAddressField2').textContent = customer.address;
+    document.getElementById('rentField2').textContent = customer.rent;
+    document.getElementById('totalPriceField2').textContent = customer.salePrice;
+    document.getElementById('phoneModelField2').textContent = customer.model || customer.phoneModel;
+    document.getElementById('imeiField2').textContent = customer.imei;
+    // 下次應繳日（民國）
+    const nextDue = getNextDueDate(customer);
+    const nextDueRoc = toROC(nextDue);
+    document.getElementById('nextDueYearField2').textContent = nextDueRoc.y;
+    document.getElementById('nextDueMonthField2').textContent = nextDueRoc.m;
+    document.getElementById('nextDueDayField2').textContent = nextDueRoc.day;
+    // 合約日期1
+    const roc2_1 = toROC(customer.contractDate || customer.contractStartDate);
+    document.getElementById('contractYearField2_1').textContent = roc2_1.y;
+    document.getElementById('contractMonthField2_1').textContent = roc2_1.m;
+    document.getElementById('contractDayField2_1').textContent = roc2_1.day;
+    // 合約日期2
+    const roc2_2 = toROC(customer.contractDate || customer.contractStartDate);
+    document.getElementById('contractYearField2_2').textContent = roc2_2.y;
+    document.getElementById('contractMonthField2_2').textContent = roc2_2.m;
+    document.getElementById('contractDayField2_2').textContent = roc2_2.day;
+    // PAGE3
+    document.getElementById('signerIdField').textContent = customer.idNumber;
+    const roc3 = toROC(customer.contractDate || customer.contractStartDate);
+    document.getElementById('contractYearField3').textContent = roc3.y;
+    document.getElementById('contractMonthField3').textContent = roc3.m;
+    document.getElementById('contractDayField3').textContent = roc3.day;
+    // 預設顯示 PAGE1
+    showContractPage(1);
+  }
+
+  document.getElementById('downloadPdfBtn').onclick = async function() {
+    // 匯出三頁合約為一份 PDF
+    const pages = [
+      document.getElementById('contract-page1').cloneNode(true),
+      document.getElementById('contract-page2').cloneNode(true),
+      document.getElementById('contract-page3').cloneNode(true)
+    ];
+    // 建立一個臨時容器
+    const container = document.createElement('div');
+    container.style.margin = '0';
+    container.style.padding = '0';
+    container.style.background = '#fff';
+    pages.forEach(p => {
+      p.classList.add('active');
+      p.style.display = 'block';
+      p.style.margin = '0';
+      p.style.padding = '0';
+      p.style.position = 'relative';
+      container.appendChild(p);
+    });
+    // 導出前自動滾到頂部
+    window.scrollTo(0, 0);
+    // 暫時隱藏 body 其他內容，只顯示 contract-page
+    const oldChildren = Array.from(document.body.children).filter(el => el !== container);
+    oldChildren.forEach(el => el.style.display = 'none');
+    document.body.insertBefore(container, document.body.firstChild);
+    // 強制 html, body 無 margin/padding
+    const html = document.documentElement;
+    const body = document.body;
+    const oldHtmlMargin = html.style.margin, oldHtmlPadding = html.style.padding;
+    const oldBodyMargin = body.style.margin, oldBodyPadding = body.style.padding;
+    html.style.margin = html.style.padding = body.style.margin = body.style.padding = '0';
+    // 依 contract-page 實際尺寸設定 PDF 格式，避免多餘空白頁
+    const pageWidth = 800 * 0.75; // px to pt (1px=0.75pt)
+    const pageHeight = 1131 * 0.75;
+    // 取得客戶姓名與合約日期
+    const name = (window.currentCustomer && window.currentCustomer.name) || '';
+    const date = (window.currentCustomer && (window.currentCustomer.contractDate || window.currentCustomer.contractStartDate) || '').replace(/-/g, '');
+    let rocDate = '';
+    if (date.length === 8) {
+      const y = (parseInt(date.substring(0, 4), 10) - 1911).toString().padStart(3, '0');
+      const m = date.substring(4, 6);
+      const d = date.substring(6, 8);
+      rocDate = `${y}${m}${d}`;
+    }
+    const filename = `${name}${rocDate}手機租賃合約.PDF`;
+    // 產生 PDF 並下載
+    const opt = {
+      margin: 0,
+      filename,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'pt', format: [pageWidth, pageHeight], orientation: 'portrait' }
+    };
+    const worker = html2pdf().set(opt).from(container);
+    await worker.save();
+    document.body.removeChild(container);
+    oldChildren.forEach(el => el.style.display = '');
+    html.style.margin = oldHtmlMargin; html.style.padding = oldHtmlPadding;
+    body.style.margin = oldBodyMargin; body.style.padding = oldBodyPadding;
+  };
+
+  function setDraggable(enable) {
+    document.querySelectorAll('.contract-field').forEach(field => {
+      if (enable) {
+        field.classList.add('field-draggable');
+        field.setAttribute('draggable', 'true');
+        // 顯示座標標籤
+        let label = field.querySelector('.field-coord-label');
+        if (!label) {
+          label = document.createElement('span');
+          label.className = 'field-coord-label';
+          field.appendChild(label);
+        }
+        const style = field.style;
+        label.textContent = `top:${style.top} left:${style.left}`;
+      } else {
+        field.classList.remove('field-draggable');
+        field.removeAttribute('draggable');
+        const label = field.querySelector('.field-coord-label');
+        if (label) label.remove();
+      }
+    });
+  }
+
+  document.getElementById('toggleAdjustBtn').onclick = function() {
+    adjustMode = !adjustMode;
+    setDraggable(adjustMode);
+    this.classList.toggle('active', adjustMode);
+    document.getElementById('adjustTip').textContent = adjustMode ? '拖曳欄位可調整位置' : '';
+  };
+
+  document.addEventListener('mousedown', function(e) {
+    if (!adjustMode) return;
+    if (e.target.classList.contains('contract-field')) {
+      dragTarget = e.target;
+      const rect = dragTarget.getBoundingClientRect();
+      dragOffsetX = e.clientX - rect.left;
+      dragOffsetY = e.clientY - rect.top;
+      document.body.style.userSelect = 'none';
+    }
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!adjustMode || !dragTarget) return;
+    const parent = dragTarget.parentElement;
+    const parentRect = parent.getBoundingClientRect();
+    let x = e.clientX - parentRect.left - dragOffsetX;
+    let y = e.clientY - parentRect.top - dragOffsetY;
+    // 限制在頁面內
+    x = Math.max(0, Math.min(x, parent.offsetWidth - dragTarget.offsetWidth));
+    y = Math.max(0, Math.min(y, parent.offsetHeight - dragTarget.offsetHeight));
+    dragTarget.style.left = x + 'px';
+    dragTarget.style.top = y + 'px';
+    // 更新標籤
+    const label = dragTarget.querySelector('.field-coord-label');
+    if (label) label.textContent = `top:${dragTarget.style.top} left:${dragTarget.style.left}`;
+  });
+  document.addEventListener('mouseup', function(e) {
+    if (!adjustMode) return;
+    dragTarget = null;
+    document.body.style.userSelect = '';
+  });
+
+  document.getElementById('copyCoordBtn').onclick = function() {
+    // 複製所有 contract-field 的 id 與 top/left
+    let out = '';
+    document.querySelectorAll('.contract-field').forEach(field => {
+      out += `${field.id}: top:${field.style.top}; left:${field.style.left};\n`;
+    });
+    navigator.clipboard.writeText(out);
+    document.getElementById('adjustTip').textContent = '已複製到剪貼簿';
+    setTimeout(()=>{document.getElementById('adjustTip').textContent='';},1500);
+  };
+</script> 

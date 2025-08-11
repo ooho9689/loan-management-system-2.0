@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>儀表板調試頁面</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f5f5f5;
+    }
+    .debug-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .chart-container {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .chart-container h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    canvas {
+      max-height: 400px;
+    }
+    .debug-info {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .debug-info h4 {
+      margin-top: 0;
+      color: #495057;
+    }
+    .status {
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+    .status.success { background: #d4edda; color: #155724; }
+    .status.error { background: #f8d7da; color: #721c24; }
+    .status.warning { background: #fff3cd; color: #856404; }
+  </style>
+</head>
+<body>
+  <div class="debug-container">
+    <h1>🔧 儀表板調試頁面</h1>
+    
+    <div class="debug-info">
+      <h4>調試信息</h4>
+      <p><strong>Chart.js 狀態:</strong> <span id="chart-status" class="status">檢查中...</span></p>
+      <p><strong>API 狀態:</strong> <span id="api-status" class="status">檢查中...</span></p>
+      <p><strong>數據載入:</strong> <span id="data-status" class="status">檢查中...</span></p>
+    </div>
+
+    <div class="chart-container">
+      <h3>📈 測試圖表 - 線圖</h3>
+      <canvas id="test-line-chart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>💰 測試圖表 - 柱狀圖</h3>
+      <canvas id="test-bar-chart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>📊 測試圖表 - 圓餅圖</h3>
+      <canvas id="test-pie-chart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>🔄 測試圖表 - 環狀圖</h3>
+      <canvas id="test-doughnut-chart" width="400" height="200"></canvas>
+    </div>
+
+    <div class="debug-info">
+      <h4>控制台日誌</h4>
+      <div id="console-log" style="background: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; height: 200px; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <script>
+    // 重寫 console.log 來捕獲日誌
+    const originalLog = console.log;
+    const originalError = console.error;
+    const logContainer = document.getElementById('console-log');
+    
+    function addLog(message, type = 'log') {
+      const timestamp = new Date().toLocaleTimeString();
+      const logEntry = document.createElement('div');
+      logEntry.style.color = type === 'error' ? '#ff6b6b' : type === 'warn' ? '#ffd93d' : '#0f0';
+      logEntry.textContent = `[${timestamp}] ${message}`;
+      logContainer.appendChild(logEntry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+    
+    console.log = function(...args) {
+      originalLog.apply(console, args);
+      addLog(args.join(' '));
+    };
+    
+    console.error = function(...args) {
+      originalError.apply(console, args);
+      addLog(args.join(' '), 'error');
+    };
+
+    // 檢查 Chart.js
+    function checkChartJS() {
+      const statusElement = document.getElementById('chart-status');
+      if (typeof Chart !== 'undefined') {
+        statusElement.textContent = '✅ 已載入';
+        statusElement.className = 'status success';
+        console.log('Chart.js 已成功載入，版本:', Chart.version);
+      } else {
+        statusElement.textContent = '❌ 未載入';
+        statusElement.className = 'status error';
+        console.error('Chart.js 未載入');
+      }
+    }
+
+    // 檢查 API
+    async function checkAPI() {
+      const statusElement = document.getElementById('api-status');
+      try {
+        const response = await fetch('http://localhost:3001/api/dashboard');
+        if (response.ok) {
+          const data = await response.json();
+          statusElement.textContent = '✅ 正常';
+          statusElement.className = 'status success';
+          console.log('API 響應正常:', data);
+        } else {
+          statusElement.textContent = '❌ 錯誤: ' + response.status;
+          statusElement.className = 'status error';
+          console.error('API 錯誤:', response.status);
+        }
+      } catch (error) {
+        statusElement.textContent = '❌ 連接失敗';
+        statusElement.className = 'status error';
+        console.error('API 連接失敗:', error);
+      }
+    }
+
+    // 創建測試圖表
+    function createTestCharts() {
+      console.log('開始創建測試圖表...');
+      
+      // 線圖
+      const lineCtx = document.getElementById('test-line-chart');
+      if (lineCtx) {
+        new Chart(lineCtx, {
+          type: 'line',
+          data: {
+            labels: ['1月', '2月', '3月', '4月', '5月', '6月'],
+            datasets: [{
+              label: '測試數據',
+              data: [12, 19, 3, 5, 2, 3],
+              borderColor: 'rgb(75, 192, 192)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+        console.log('線圖創建成功');
+      }
+
+      // 柱狀圖
+      const barCtx = document.getElementById('test-bar-chart');
+      if (barCtx) {
+        new Chart(barCtx, {
+          type: 'bar',
+          data: {
+            labels: ['紅色', '藍色', '黃色', '綠色', '紫色', '橙色'],
+            datasets: [{
+              label: '測試數據',
+              data: [12, 19, 3, 5, 2, 3],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(153, 102, 255)',
+                'rgb(255, 159, 64)'
+              ],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+        console.log('柱狀圖創建成功');
+      }
+
+      // 圓餅圖
+      const pieCtx = document.getElementById('test-pie-chart');
+      if (pieCtx) {
+        new Chart(pieCtx, {
+          type: 'pie',
+          data: {
+            labels: ['紅色', '藍色', '黃色', '綠色', '紫色'],
+            datasets: [{
+              data: [12, 19, 3, 5, 2],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+        console.log('圓餅圖創建成功');
+      }
+
+      // 環狀圖
+      const doughnutCtx = document.getElementById('test-doughnut-chart');
+      if (doughnutCtx) {
+        new Chart(doughnutCtx, {
+          type: 'doughnut',
+          data: {
+            labels: ['紅色', '藍色', '黃色', '綠色', '紫色'],
+            datasets: [{
+              data: [12, 19, 3, 5, 2],
+              backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false
+          }
+        });
+        console.log('環狀圖創建成功');
+      }
+
+      document.getElementById('data-status').textContent = '✅ 測試圖表已創建';
+      document.getElementById('data-status').className = 'status success';
+    }
+
+    // 初始化
+    window.addEventListener('load', function() {
+      console.log('調試頁面載入完成');
+      
+      // 檢查 Chart.js
+      checkChartJS();
+      
+      // 檢查 API
+      checkAPI();
+      
+      // 創建測試圖表
+      setTimeout(createTestCharts, 1000);
+    });
+  </script>
+</body>
+</html> 

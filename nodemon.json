@@ -1,0 +1,22 @@
+{
+  "verbose": true,
+  "ignore": [
+    "node_modules/",
+    "logs/",
+    "uploads/",
+    "*.log",
+    "*.json"
+  ],
+  "watch": [
+    "server.js",
+    "routes/",
+    "middleware/",
+    "utils/",
+    "services/"
+  ],
+  "ext": "js,json",
+  "delay": "1000",
+  "env": {
+    "NODE_ENV": "development"
+  }
+} 

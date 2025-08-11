@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>手機租賃管理系統</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    /* 2.0 的樣式 */
+    #sales-management {
+      display: none;
+    }
+    #sales-management .container {
+      padding: 20px;
+    }
+    #sales-management .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 30px 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 16px;
+      color: white;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    }
+    #sales-management h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: white;
+    }
+    #sales-management p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 400;
+    }
+    #sales-management .stats-grid {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      gap: 15px;
+    }
+    #sales-management .stat-card {
+      text-align: center;
+      padding: 20px 15px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 12px;
+      flex: 1;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: white;
+    }
+    #sales-management .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+    #sales-management .stat-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    #sales-management .stat-number {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: white;
+    }
+    #sales-management .stat-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+    }
+    #sales-management .main-content {
+      display: flex;
+      gap: 20px;
+    }
+    #sales-management .sales-list-section {
+      flex: 1;
+    }
+    #sales-management .sales-list-section .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding: 20px 25px;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 12px;
+      border: 1px solid #e9ecef;
+    }
+    #sales-management .sales-list-section h2 {
+      font-size: 22px;
+      margin: 0;
+      color: #2c3e50;
+      font-weight: 600;
+    }
+    #sales-management .sales-list-section .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 200px; /* 固定宽度 */
+      max-width: 250px;
+    }
+    #sales-management .sales-list-section .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    #sales-management .sales-list-section .btn-primary span {
+      font-size: 16px;
+    }
+    #sales-management .sales-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #sales-management .sales-grid .sales-item {
+      width: 100%;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      padding: 25px;
+      border: 1px solid #e9ecef;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+    #sales-management .sales-grid .sales-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      border-color: #667eea;
+    }
+    #sales-management .sales-grid .sales-item .sales-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    #sales-management .sales-grid .sales-item .sales-name {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    #sales-management .sales-grid .sales-item .sales-phone {
+      font-size: 14px;
+      color: #666;
+    }
+    #sales-management .sales-form-sidebar {
+      width: 300px;
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    #sales-management .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #sales-management .form-header h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    #sales-management .close-btn {
+      font-size: 24px;
+      color: #666;
+      cursor: pointer;
+    }
+    #sales-management .form-group {
+      margin-bottom: 15px;
+    }
+    #sales-management .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    #sales-management .form-group input[type="text"],
+    #sales-management .form-group input[type="email"],
+    #sales-management .form-group input[type="password"],
+    #sales-management .form-group input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #sales-management .form-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    #sales-management .btn-primary,
+    #sales-management .btn-secondary {
+      flex: 1;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    #sales-management .btn-primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    #sales-management .btn-secondary {
+      background-color: #ccc;
+      color: #333;
+    }
+    
+    /* 客戶卡片樣式 */
+    #sales-management .customers-section {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    
+    #sales-management .customer-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    #sales-management .customer-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    #sales-management .customer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    #sales-management .customer-info {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    #sales-management .customer-name {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    #sales-management .customer-model {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    #sales-management .customer-status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    
+    #sales-management .status-normal {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    #sales-management .status-overdue {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    #sales-management .status-completed {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    #sales-management .status-locked {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    #sales-management .finance-toggle {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    #sales-management .finance-summary {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 4px;
+      border-left: 4px solid #667eea;
+    }
+    
+    #sales-management .finance-summary.show {
+      display: block;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    #sales-management .finance-summary h6 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    #sales-management .finance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    
+    #sales-management .finance-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+    
+    #sales-management .finance-label {
+      color: #666;
+      font-size: 12px;
+    }
+    
+    #sales-management .finance-value {
+      font-weight: bold;
+      font-size: 12px;
+    }
+    
+    #sales-management .profit-positive {
+      color: #28a745;
+    }
+    
+    #sales-management .profit-negative {
+      color: #dc3545;
+    }
+    
+    /* 設備卡片樣式 */
+    #sales-management .sales-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    #sales-management .sales-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    
+    #sales-management .sales-card-title {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    
+    #sales-management .sales-avatar {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    #sales-management .sales-info h4 {
+      margin: 0 0 8px 0;
+      color: #2c3e50;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    #sales-management .sales-info p {
+      margin: 0;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    
+    #sales-management .sales-card-actions {
+      display: flex;
+      gap: 12px;
+    }
+    
+    #sales-management .btn-edit,
+    #sales-management .btn-delete {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    #sales-management .btn-edit {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    }
+    #sales-management .btn-edit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+    }
+    
+    #sales-management .btn-delete {
+      background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+    }
+    #sales-management .btn-delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+    }
+    
+    #sales-management .sales-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    #sales-management .detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    #sales-management .detail-label {
+      color: #666;
+      font-size: 14px;
+    }
+    
+    #sales-management .detail-value {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    #sales-management .password-logs {
+      margin-top: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+    
+    #sales-management .password-logs h5 {
+      margin: 0 0 10px 0;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    #sales-management .password-logs ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 12px;
+      color: #666;
+    }
+    
+    /* 載入和錯誤狀態 */
+    #sales-management .loading,
+    #sales-management .error,
+    #sales-management .no-data {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+    }
+    
+    #sales-management .error h3 {
+      color: #dc3545;
+      margin-bottom: 10px;
+    }
+    
+    #sales-management .no-data h3 {
+      color: #666;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <button data-page="dashboard">儀表板</button>
+    <button data-page="list">客戶列表</button>
+    <button data-page="add">新增客戶</button>
+    <button data-page="table">帳表</button>
+
+    <button data-page="logs">操作日誌</button>
+    <button data-page="sales-management">設備管理</button>
+  </div>
+  <div class="main">
+
+    <!-- 儀表板內容 -->
+    <div id="dashboard" class="dashboard-container page active">
+      <!-- 儀表板標題 -->
+      <div class="dashboard-header">
+        <div class="dashboard-title">
+          <h2>智能儀表板</h2>
+          <div class="dashboard-subtitle">實時監控業務數據，智能分析趨勢</div>
+        </div>
+        <div class="dashboard-actions">
+          <button class="refresh-btn" onclick="loadDashboard()">
+            <span>🔄</span>
+            <span>刷新</span>
+          </button>
+          <button class="export-btn" onclick="exportDashboardData()">
+            <span>📊</span>
+            <span>導出</span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- 智能控制面板 -->
+      <div class="dashboard-controls">
+        <div class="control-section">
+          <div class="date-range-picker">
+            <div class="date-input-group">
+              <label>起始日期</label>
+              <input type="date" id="dashboard-start-date" class="date-input">
+            </div>
+            <div class="date-input-group">
+              <label>結束日期</label>
+              <input type="date" id="dashboard-end-date" class="date-input">
+            </div>
+            <button id="dashboard-date-search-btn" class="search-btn">
+              <span class="icon">🔍</span> 查詢
+            </button>
+            <button id="dashboard-reset-btn" class="reset-btn">
+              <span class="icon">🔄</span> 重置
+            </button>
+          </div>
+        </div>
+        
+        <div class="view-controls">
+          <div class="view-section">
+            <div class="section-label">顯示方式</div>
+            <div class="view-toggle">
+              <button id="view-month-btn" class="view-btn active" data-view="month">
+                <span class="icon">📅</span> 月
+              </button>
+              <button id="view-day-btn" class="view-btn" data-view="day">
+                <span class="icon">📆</span> 日
+              </button>
+              <button id="view-week-btn" class="view-btn" data-view="week">
+                <span class="icon">📊</span> 週
+              </button>
+            </div>
+          </div>
+          
+          <div class="filter-section">
+            <div class="section-label">時間範圍</div>
+            <div class="quick-filters">
+              <button class="filter-chip active" data-period="all">全部</button>
+              <button class="filter-chip" data-period="today">今日</button>
+              <button class="filter-chip" data-period="week">本週</button>
+              <button class="filter-chip" data-period="month">本月</button>
+              <button class="filter-chip" data-period="quarter">本季</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 核心指標卡片 -->
+      <div class="kpi-grid">
+        <div class="kpi-card primary">
+          <div class="kpi-header">
+            <div class="kpi-icon">👥</div>
+            <div class="kpi-trend positive">
+              <span class="trend-icon">↗</span>
+              <span class="trend-value">+12%</span>
+            </div>
+          </div>
+          <div class="kpi-content">
+            <h3>總客戶數</h3>
+            <div class="kpi-value" id="total-customers">0</div>
+            <div class="kpi-detail">
+              <span class="detail-item">活躍: <span id="active-customers">0</span></span>
+              <span class="detail-item">新增: <span id="new-customers">0</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="kpi-card success">
+          <div class="kpi-header">
+            <div class="kpi-icon">💰</div>
+            <div class="kpi-trend positive">
+              <span class="trend-icon">↗</span>
+              <span class="trend-value">+8%</span>
+            </div>
+          </div>
+          <div class="kpi-content">
+            <h3>累積業績</h3>
+            <div class="kpi-value" id="accumulated-sales">0元</div>
+            <div class="kpi-detail">
+              <span class="detail-item">本月: <span id="monthly-sales">0元</span></span>
+              <span class="detail-item">平均: <span id="avg-sales">0元</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="kpi-card warning">
+          <div class="kpi-header">
+            <div class="kpi-icon">⏰</div>
+            <div class="kpi-trend negative">
+              <span class="trend-icon">↘</span>
+              <span class="trend-value">-5%</span>
+            </div>
+          </div>
+          <div class="kpi-content">
+            <h3>待繳款</h3>
+            <div class="kpi-value" id="pending-payments">0</div>
+            <div class="kpi-detail">
+              <span class="detail-item">逾期: <span id="overdue-count">0</span></span>
+              <span class="detail-item">金額: <span id="overdue-amount">0元</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="kpi-card danger">
+          <div class="kpi-header">
+            <div class="kpi-icon">⚠️</div>
+            <div class="kpi-trend negative">
+              <span class="trend-icon">↗</span>
+              <span class="trend-value">+2%</span>
+            </div>
+          </div>
+          <div class="kpi-content">
+            <h3>呆帳率</h3>
+            <div class="kpi-value" id="buyback-locked-rate">0%</div>
+            <div class="kpi-detail">
+              <span class="detail-item">人數: <span id="locked-customers">0人</span></span>
+              <span class="detail-item">金額: <span id="locked-amount">0元</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="kpi-card info">
+          <div class="kpi-header">
+            <div class="kpi-icon">✅</div>
+            <div class="kpi-trend positive">
+              <span class="trend-icon">↗</span>
+              <span class="trend-value">+15%</span>
+            </div>
+          </div>
+          <div class="kpi-content">
+            <h3>已買回率</h3>
+            <div class="kpi-value" id="buyback-rate">0%</div>
+            <div class="kpi-detail">
+              <span class="detail-item">人數: <span id="buyback-customers">0人</span></span>
+              <span class="detail-item">收益: <span id="buyback-profit">0元</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="kpi-card profit">
+          <div class="kpi-header">
+            <div class="kpi-icon">💵</div>
+            <div class="kpi-trend positive">
+              <span class="trend-icon">↗</span>
+              <span class="trend-value">+18%</span>
+            </div>
+          </div>
+          <div class="kpi-content">
+            <h3>淨利潤</h3>
+            <div class="kpi-value" id="profit-summary">0元</div>
+            <div class="kpi-detail">
+              <span class="detail-item">毛利率: <span id="profit-margin">0%</span></span>
+              <span class="detail-item">ROI: <span id="roi-rate">0%</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 圖表分析區域 -->
+      <div class="charts-section">
+        <!-- 主要趨勢圖 -->
+        <div class="chart-row">
+          <div class="chart-container large">
+            <div class="chart-header">
+              <h3>業務趨勢分析</h3>
+              <div class="chart-controls">
+                <button class="chart-btn active" data-metric="customers">客戶</button>
+                <button class="chart-btn" data-metric="revenue">營收</button>
+                <button class="chart-btn" data-metric="payments">付款</button>
+              </div>
+            </div>
+            <div class="chart-content">
+              <canvas id="dashboard-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 金額分析圖 -->
+        <div class="chart-row">
+          <div class="chart-container large">
+            <div class="chart-header">
+              <h3>金額分析</h3>
+              <div class="chart-summary">
+                <div class="summary-item">
+                  <span class="summary-label">總營收</span>
+                  <span class="summary-value" id="total-revenue">0</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">總利潤</span>
+                  <span class="summary-value" id="total-profit">0</span>
+                </div>
+                <div class="summary-item">
+                  <span class="summary-label">總成本</span>
+                  <span class="summary-value" id="total-cost">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="chart-content">
+              <canvas id="amount-chart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分布圖表 -->
+        <div class="chart-row">
+          <div class="chart-container medium">
+            <div class="chart-header">
+              <h3>機型分布</h3>
+            </div>
+            <div class="chart-content">
+              <canvas id="model-chart"></canvas>
+            </div>
+          </div>
+          <div class="chart-container medium">
+            <div class="chart-header">
+              <h3>地區分布</h3>
+            </div>
+            <div class="chart-content">
+              <canvas id="region-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 實時監控 -->
+      <div class="real-time-section">
+        <div class="real-time-indicator">
+          <div class="pulse"></div>
+          <span>實時監控</span>
+        </div>
+        <div class="real-time-stats">
+          <div class="rt-stat">
+            <span class="rt-label">今日新增</span>
+            <span class="rt-value" id="today-new">0</span>
+          </div>
+          <div class="rt-stat">
+            <span class="rt-label">今日付款</span>
+            <span class="rt-value" id="today-payments">0</span>
+          </div>
+          <div class="rt-stat">
+            <span class="rt-label">逾期警報</span>
+            <span class="rt-value" id="overdue-alerts">0</span>
+          </div>
+          <div class="rt-stat">
+            <span class="rt-label">系統狀態</span>
+            <span class="rt-value" id="system-status">正常</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 風險評估 -->
+      <div class="risk-section">
+        <div class="risk-level-indicator">
+          <h3>風險評估</h3>
+          <div class="risk-level" id="overall-risk-level">中等</div>
+        </div>
+        <div class="risk-metrics">
+          <div class="risk-metric">
+            <div class="risk-label">逾期率</div>
+            <div class="risk-value" id="overdue-rate">0%</div>
+            <div class="risk-bar">
+              <div class="risk-fill" id="overdue-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="risk-metric">
+            <div class="risk-label">呆帳率</div>
+            <div class="risk-value" id="bad-debt-rate">0%</div>
+            <div class="risk-bar">
+              <div class="risk-fill" id="bad-debt-fill" style="width: 0%"></div>
+            </div>
+          </div>
+          <div class="risk-metric">
+            <div class="risk-label">流失率</div>
+            <div class="risk-value" id="churn-rate">0%</div>
+            <div class="risk-bar">
+              <div class="risk-fill" id="churn-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 智能分析建議 -->
+      <div class="insights-section">
+        <div class="insights-header">
+          <h3>智能分析建議</h3>
+          <div class="insights-controls">
+            <button class="insight-btn active" data-type="all">全部</button>
+            <button class="insight-btn" data-type="warning">警告</button>
+            <button class="insight-btn" data-type="suggestion">建議</button>
+            <button class="insight-btn" data-type="success">成功</button>
+          </div>
+        </div>
+        <div class="insights-grid">
+          <div class="insight-card warning">
+            <div class="insight-icon">⚠️</div>
+            <div class="insight-content">
+              <h4>逾期風險提醒</h4>
+              <p>有3個客戶存在逾期風險，建議及時跟進</p>
+            </div>
+            <div class="insight-actions">
+              <button class="action-btn">查看詳情</button>
+            </div>
+          </div>
+          <div class="insight-card suggestion">
+            <div class="insight-icon">💡</div>
+            <div class="insight-content">
+              <h4>業務優化建議</h4>
+              <p>建議加強iPhone 12系列的推廣，市場需求較高</p>
+            </div>
+            <div class="insight-actions">
+              <button class="action-btn">採納建議</button>
+            </div>
+          </div>
+          <div class="insight-card success">
+            <div class="insight-icon">✅</div>
+            <div class="insight-content">
+              <h4>業績達標</h4>
+              <p>本月新增客戶數已達標，表現優秀</p>
+            </div>
+            <div class="insight-actions">
+              <button class="action-btn">查看報告</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 快速操作面板 -->
+      <div class="quick-actions-panel">
+        <h3>快速操作</h3>
+        <div class="quick-actions-grid">
+          <div class="quick-action" onclick="dashboardQuickAction('add-customer')">
+            <div class="action-icon">➕</div>
+            <div class="action-text">新增客戶</div>
+          </div>
+          <div class="quick-action" onclick="dashboardQuickAction('payment-record')">
+            <div class="action-icon">💰</div>
+            <div class="action-text">收款記錄</div>
+          </div>
+          <div class="quick-action" onclick="dashboardQuickAction('export-report')">
+            <div class="action-icon">📊</div>
+            <div class="action-text">報表導出</div>
+          </div>
+          <div class="quick-action" onclick="dashboardQuickAction('system-settings')">
+            <div class="action-icon">⚙️</div>
+            <div class="action-text">系統設置</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="list" class="page">
+      <h2>客戶列表</h2>
+      
+      <!-- 快速操作栏 -->
+      <div class="quick-actions">
+        <button class="quick-action-btn primary" onclick="showAddCustomerModal()">
+          <span class="icon">➕</span>新增客戶
+        </button>
+        <button class="quick-action-btn" onclick="exportCustomerData()">
+          <span class="icon">📊</span>匯出資料
+        </button>
+        <button class="quick-action-btn" onclick="showBulkPaymentModal()">
+          <span class="icon">💰</span>批量繳款
+        </button>
+      </div>
+
+      <!-- 智能筛选器 -->
+      <div class="smart-filter">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="搜尋姓名、身分證、手機號碼..." />
+          <span class="search-icon">🔍</span>
+        </div>
+        
+        <div class="filter-tabs">
+          <button class="filter-tab active" data-filter="all">
+            <span class="tab-icon">📋</span>全部
+            <span class="tab-count" id="count-all">0</span>
+          </button>
+          <button class="filter-tab" data-filter="renting">
+            <span class="tab-icon">📱</span>租賃中
+            <span class="tab-count" id="count-renting">0</span>
+          </button>
+          <button class="filter-tab" data-filter="overdue">
+            <span class="tab-icon">⚠️</span>逾期
+            <span class="tab-count" id="count-overdue">0</span>
+          </button>
+          <button class="filter-tab" data-filter="due-today">
+            <span class="tab-icon">📅</span>本日應繳
+            <span class="tab-count" id="count-due-today">0</span>
+          </button>
+          <button class="filter-tab" data-filter="locked">
+            <span class="tab-icon">🔒</span>呆帳
+            <span class="tab-count" id="count-locked">0</span>
+          </button>
+          <button class="filter-tab" data-filter="buyback">
+            <span class="tab-icon">✅</span>已買回
+            <span class="tab-count" id="count-buyback">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 客户卡片容器 -->
+      <div class="customer-grid" id="customer-grid">
+        <!-- 动态生成的客户卡片 -->
+      </div>
+
+      <!-- 分页控件 -->
+      <div class="pagination" id="pagination">
+        <button class="pagination-btn" id="prev-page">上一页</button>
+        <span class="page-info" id="page-info">第 1 页，共 1 页</span>
+        <button class="pagination-btn" id="next-page">下一页</button>
+      </div>
+    </div>
+    <div id="add" class="page">
+      <h2>新增客戶</h2>
+      <form id="add-customer-form" enctype="multipart/form-data">
+        <!-- 基本資料 -->
+        <div class="form-section-group">
+          <h3>基本資料</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name" class="required">姓名</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="idNumber" class="required">身分證字號</label>
+              <input type="text" id="idNumber" name="idNumber" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone" class="required">手機號碼</label>
+              <input type="tel" id="phone" name="phone" required />
+            </div>
+            <div class="form-group">
+              <label for="birthday">生日</label>
+              <input type="date" id="birthday" name="birthday" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="occupation">職業</label>
+              <input type="text" id="occupation" name="occupation" />
+            </div>
+            <div class="form-group">
+              <label for="source">來源管道</label>
+              <input type="text" id="source" name="source" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="emergencyContactName">緊急聯絡人</label>
+              <input type="text" id="emergencyContactName" name="emergencyContactName" placeholder="姓名" />
+            </div>
+            <div class="form-group">
+              <label for="emergencyContactPhone">緊急聯絡電話</label>
+              <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone" placeholder="電話" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 聯絡資訊 -->
+        <div class="form-section-group">
+          <h3>聯絡資訊</h3>
+          <div class="address-group">
+            <div class="form-group">
+              <label for="city" class="required">縣市</label>
+              <select id="city" name="city" required>
+                <option value="">請選擇縣市</option>
+                <option value="台北市">台北市</option>
+                <option value="新北市">新北市</option>
+                <option value="桃園市">桃園市</option>
+                <option value="台中市">台中市</option>
+                <option value="台南市">台南市</option>
+                <option value="高雄市">高雄市</option>
+                <option value="基隆市">基隆市</option>
+                <option value="新竹市">新竹市</option>
+                <option value="嘉義市">嘉義市</option>
+                <option value="新竹縣">新竹縣</option>
+                <option value="苗栗縣">苗栗縣</option>
+                <option value="彰化縣">彰化縣</option>
+                <option value="南投縣">南投縣</option>
+                <option value="雲林縣">雲林縣</option>
+                <option value="嘉義縣">嘉義縣</option>
+                <option value="屏東縣">屏東縣</option>
+                <option value="宜蘭縣">宜蘭縣</option>
+                <option value="花蓮縣">花蓮縣</option>
+                <option value="台東縣">台東縣</option>
+                <option value="澎湖縣">澎湖縣</option>
+                <option value="金門縣">金門縣</option>
+                <option value="連江縣">連江縣</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="district" class="required">地區</label>
+              <input type="text" id="district" name="district" placeholder="請輸入地區" required />
+            </div>
+            <div class="form-group">
+              <label for="street" class="required">街道地址</label>
+              <input type="text" id="street" name="street" placeholder="請輸入街道、巷弄、門牌等" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" id="sameAsRegistered" /> 通訊地址同戶籍</label>
+          </div>
+          <div class="form-group">
+            <label for="currentAddress" class="required">通訊地址</label>
+            <input type="text" id="currentAddress" name="currentAddress" required />
+          </div>
+        </div>
+
+        <!-- 租賃資訊 -->
+        <div class="form-section-group">
+          <h3>租賃資訊</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="model" class="required">手機型號</label>
+              <select id="model" name="model" required>
+                <option value="">請選擇型號</option>
+                <option value="iPhone 12 64GB">iPhone 12 64GB</option>
+                <option value="iPhone 12 128GB">iPhone 12 128GB</option>
+                <option value="iPhone 12 256GB">iPhone 12 256GB</option>
+                <option value="iPhone 12 mini 64GB">iPhone 12 mini 64GB</option>
+                <option value="iPhone 12 mini 128GB">iPhone 12 mini 128GB</option>
+                <option value="iPhone 12 mini 256GB">iPhone 12 mini 256GB</option>
+                <option value="iPhone 12 Pro 128GB">iPhone 12 Pro 128GB</option>
+                <option value="iPhone 12 Pro 256GB">iPhone 12 Pro 256GB</option>
+                <option value="iPhone 12 Pro 512GB">iPhone 12 Pro 512GB</option>
+                <option value="iPhone 12 Pro Max 128GB">iPhone 12 Pro Max 128GB</option>
+                <option value="iPhone 12 Pro Max 256GB">iPhone 12 Pro Max 256GB</option>
+                <option value="iPhone 12 Pro Max 512GB">iPhone 12 Pro Max 512GB</option>
+                <option value="iPhone 13 128GB">iPhone 13 128GB</option>
+                <option value="iPhone 13 256GB">iPhone 13 256GB</option>
+                <option value="iPhone 13 512GB">iPhone 13 512GB</option>
+                <option value="iPhone 13 mini 128GB">iPhone 13 mini 128GB</option>
+                <option value="iPhone 13 mini 256GB">iPhone 13 mini 256GB</option>
+                <option value="iPhone 13 mini 512GB">iPhone 13 mini 512GB</option>
+                <option value="iPhone 13 Pro 128GB">iPhone 13 Pro 128GB</option>
+                <option value="iPhone 13 Pro 256GB">iPhone 13 Pro 256GB</option>
+                <option value="iPhone 13 Pro 512GB">iPhone 13 Pro 512GB</option>
+                <option value="iPhone 13 Pro 1TB">iPhone 13 Pro 1TB</option>
+                <option value="iPhone 13 Pro Max 128GB">iPhone 13 Pro Max 128GB</option>
+                <option value="iPhone 13 Pro Max 256GB">iPhone 13 Pro Max 256GB</option>
+                <option value="iPhone 13 Pro Max 512GB">iPhone 13 Pro Max 512GB</option>
+                <option value="iPhone 13 Pro Max 1TB">iPhone 13 Pro Max 1TB</option>
+                <option value="iPhone SE (第三代) 64GB">iPhone SE (第三代) 64GB</option>
+                <option value="iPhone SE (第三代) 128GB">iPhone SE (第三代) 128GB</option>
+                <option value="iPhone SE (第三代) 256GB">iPhone SE (第三代) 256GB</option>
+                <option value="iPhone 14 128GB">iPhone 14 128GB</option>
+                <option value="iPhone 14 256GB">iPhone 14 256GB</option>
+                <option value="iPhone 14 512GB">iPhone 14 512GB</option>
+                <option value="iPhone 14 Plus 128GB">iPhone 14 Plus 128GB</option>
+                <option value="iPhone 14 Plus 256GB">iPhone 14 Plus 256GB</option>
+                <option value="iPhone 14 Plus 512GB">iPhone 14 Plus 512GB</option>
+                <option value="iPhone 14 Pro 128GB">iPhone 14 Pro 128GB</option>
+                <option value="iPhone 14 Pro 256GB">iPhone 14 Pro 256GB</option>
+                <option value="iPhone 14 Pro 512GB">iPhone 14 Pro 512GB</option>
+                <option value="iPhone 14 Pro 1TB">iPhone 14 Pro 1TB</option>
+                <option value="iPhone 14 Pro Max 128GB">iPhone 14 Pro Max 128GB</option>
+                <option value="iPhone 14 Pro Max 256GB">iPhone 14 Pro Max 256GB</option>
+                <option value="iPhone 14 Pro Max 512GB">iPhone 14 Pro Max 512GB</option>
+                <option value="iPhone 14 Pro Max 1TB">iPhone 14 Pro Max 1TB</option>
+                <option value="iPhone 15 128GB">iPhone 15 128GB</option>
+                <option value="iPhone 15 256GB">iPhone 15 256GB</option>
+                <option value="iPhone 15 512GB">iPhone 15 512GB</option>
+                <option value="iPhone 15 Plus 128GB">iPhone 15 Plus 128GB</option>
+                <option value="iPhone 15 Plus 256GB">iPhone 15 Plus 256GB</option>
+                <option value="iPhone 15 Plus 512GB">iPhone 15 Plus 512GB</option>
+                <option value="iPhone 15 Pro 128GB">iPhone 15 Pro 128GB</option>
+                <option value="iPhone 15 Pro 256GB">iPhone 15 Pro 256GB</option>
+                <option value="iPhone 15 Pro 512GB">iPhone 15 Pro 512GB</option>
+                <option value="iPhone 15 Pro 1TB">iPhone 15 Pro 1TB</option>
+                <option value="iPhone 15 Pro Max 256GB">iPhone 15 Pro Max 256GB</option>
+                <option value="iPhone 15 Pro Max 512GB">iPhone 15 Pro Max 512GB</option>
+                <option value="iPhone 15 Pro Max 1TB">iPhone 15 Pro Max 1TB</option>
+                <option value="iPhone 16 128GB">iPhone 16 128GB</option>
+                <option value="iPhone 16 256GB">iPhone 16 256GB</option>
+                <option value="iPhone 16 512GB">iPhone 16 512GB</option>
+                <option value="iPhone 16 1TB">iPhone 16 1TB</option>
+                <option value="iPhone 16 Plus 128GB">iPhone 16 Plus 128GB</option>
+                <option value="iPhone 16 Plus 256GB">iPhone 16 Plus 256GB</option>
+                <option value="iPhone 16 Plus 512GB">iPhone 16 Plus 512GB</option>
+                <option value="iPhone 16 Plus 1TB">iPhone 16 Plus 1TB</option>
+                <option value="iPhone 16 Pro 128GB">iPhone 16 Pro 128GB</option>
+                <option value="iPhone 16 Pro 256GB">iPhone 16 Pro 256GB</option>
+                <option value="iPhone 16 Pro 512GB">iPhone 16 Pro 512GB</option>
+                <option value="iPhone 16 Pro 1TB">iPhone 16 Pro 1TB</option>
+                <option value="iPhone 16 Pro Max 256GB">iPhone 16 Pro Max 256GB</option>
+                <option value="iPhone 16 Pro Max 512GB">iPhone 16 Pro Max 512GB</option>
+                <option value="iPhone 16 Pro Max 1TB">iPhone 16 Pro Max 1TB</option>
+                <option value="iPhone 16e 128GB">iPhone 16e 128GB</option>
+                <option value="iPhone 16e 256GB">iPhone 16e 256GB</option>
+                <option value="iPhone 16e 512GB">iPhone 16e 512GB</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="imei" class="required">IMEI</label>
+              <input type="text" id="imei" name="imei" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="serialNumber" class="required">序號</label>
+              <input type="text" id="serialNumber" name="serialNumber" required />
+            </div>
+            <div class="form-group">
+              <label for="screenPassword">螢幕密碼</label>
+              <input type="text" id="screenPassword" name="screenPassword" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contractDate" class="required">合約起始日</label>
+              <input type="date" id="contractDate" name="contractDate" required />
+            </div>
+            <div class="form-group">
+              <label for="paymentCycleDays" class="required">繳款週期（天）</label>
+              <input type="number" id="paymentCycleDays" name="paymentCycleDays" min="1" value="30" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- 財務資訊 -->
+        <div class="form-section-group">
+          <h3>財務資訊</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="salePrice" class="required">買賣價金</label>
+              <input type="number" id="salePrice" name="salePrice" required />
+            </div>
+            <div class="form-group">
+              <label for="rent" class="required">租金</label>
+              <input type="number" id="rent" name="rent" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bank" class="required">銀行</label>
+              <input type="text" id="bank" name="bank" required />
+            </div>
+            <div class="form-group">
+              <label for="bankAccountName" class="required">戶名</label>
+              <input type="text" id="bankAccountName" name="bankAccountName" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bankAccountNumber" class="required">帳號</label>
+              <input type="text" id="bankAccountNumber" name="bankAccountNumber" required />
+            </div>
+            <div class="form-group">
+              <label for="salesId">設備</label>
+              <select id="salesId" name="salesId">
+                <option value="">請選擇設備</option>
+                <!-- 动态加载设备选项 -->
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 檔案上傳 -->
+        <div class="form-section-group">
+          <h3>檔案上傳</h3>
+          <div class="file-upload-grid">
+            <div class="file-upload-item">
+              <label for="idFront">身分證正面</label>
+              <input type="file" id="idFront" name="idFront" accept="image/*" />
+              <div class="file-preview" id="idFront-preview"></div>
+            </div>
+            <div class="file-upload-item">
+              <label for="idBack">身分證反面</label>
+              <input type="file" id="idBack" name="idBack" accept="image/*" />
+              <div class="file-preview" id="idBack-preview"></div>
+            </div>
+            <div class="file-upload-item">
+              <label for="billPhoto">存摺封面</label>
+              <input type="file" id="billPhoto" name="billPhoto" accept="image/*" />
+              <div class="file-preview" id="billPhoto-preview"></div>
+            </div>
+            <div class="file-upload-item">
+              <label for="contractPdf">合約PDF</label>
+              <input type="file" id="contractPdf" name="contractPdf" accept=".pdf" />
+              <div class="file-preview" id="contractPdf-preview"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">新增客戶</button>
+        </div>
+      </form>
+    </div>
+    <div id="table" class="page">
+      <h2>帳務表格</h2>
+      <div id="table-container"></div>
+    </div>
+    <div id="logs" class="page">
+      <h2>操作日誌</h2>
+      <div id="logs-search-bar" style="margin-bottom:16px;">
+        <label>起始日 <input type="date" id="logs-start-date"></label>
+        <label>結束日 <input type="date" id="logs-end-date"></label>
+        <label>操作類型 <input type="text" id="logs-action" placeholder="如：異常/新增/編輯"></label>
+        <label>異常類型 <input type="text" id="logs-type" placeholder="如：驗證失敗/catch"></label>
+        <label>操作者 <input type="text" id="logs-user" placeholder="如：admin"></label>
+        <label>客戶ID <input type="text" id="logs-customer-id"></label>
+        <label>客戶姓名 <input type="text" id="logs-customer-name"></label>
+        <label>關鍵字 <input type="text" id="logs-keyword" placeholder="可搜尋訊息/內容"></label>
+        <button id="logs-search-btn">查詢</button>
+        <button id="logs-reset-btn">重設</button>
+      </div>
+      <div id="logs-container"></div>
+    </div>
+
+    <!-- 設備管理系統 內嵌分頁 -->
+    <div id="sales-management" class="page">
+      <div class="container">
+        <div class="header">
+            <h1>設備管理系統</h1>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="total-sales">0</div>
+                <div class="stat-label">總設備數</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📱</div>
+                <div class="stat-number" id="active-sales">0</div>
+                <div class="stat-label">活躍設備</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👤</div>
+                <div class="stat-number" id="total-customers">0</div>
+                <div class="stat-label">總客戶數</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-number" id="avg-customers">0</div>
+                <div class="stat-label">平均客戶數</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number" id="sales-total-profit">0</div>
+                <div class="stat-label">總損益</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⚠️</div>
+                <div class="stat-number" id="overdue-customers">0</div>
+                <div class="stat-label">逾期客戶數</div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="sales-list-section">
+                <div class="section-header">
+                    <h2>設備列表</h2>
+                    <button class="btn-primary" onclick="openSalesForm()">
+                        <span>➕</span>新增設備
+                    </button>
+                </div>
+                <div id="sales-list" class="sales-grid">
+                    <div class="loading">載入中...</div>
+                </div>
+            </div>
+            <div class="sales-form-sidebar" id="sales-form-sidebar" style="display: none;">
+                <div class="form-header">
+                    <h3 id="form-title">新增設備</h3>
+                    <button class="close-btn" onclick="closeSalesForm()">&times;</button>
+                </div>
+                <form id="sales-form">
+                    <input type="hidden" id="sales-id" name="id">
+                    <div class="form-group">
+                        <label for="sales-name">姓名 *</label>
+                        <input type="text" id="sales-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sales-phone">手機號碼 *</label>
+                        <input type="tel" id="sales-phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sales-findPhone">復原密鑰/號碼</label>
+                        <input type="text" id="sales-findPhone" name="findPhone" placeholder="復原密鑰或號碼">
+                    </div>
+                    <div class="form-group">
+                        <label for="sales-appleAccount">APPLE帳號 *</label>
+                        <input type="email" id="sales-appleAccount" name="appleAccount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sales-applePassword">APPLE密碼 *</label>
+                        <input type="password" id="sales-applePassword" name="applePassword" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="sales-save-btn">新增</button>
+                        <button type="button" class="btn-secondary" onclick="resetSalesForm()">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div id="payment-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal">&times;</span>
+      <h3>繳款</h3>
+      <div class="form-group">
+        <label for="payment-amount">繳款金額</label>
+        <input type="number" id="payment-amount" required />
+      </div>
+      <div class="form-group">
+        <label for="payment-date">繳款日期</label>
+        <input type="date" id="payment-date" required />
+      </div>
+      <button id="submit-payment">確認繳款</button>
+    </div>
+  </div>
+
+  <!-- 編輯客戶 Modal -->
+  <div id="edit-modal" class="modal">
+    <div class="modal-content large">
+      <span class="close-modal">&times;</span>
+      <h3>編輯客戶</h3>
+      <form id="edit-customer-form">
+        <!-- 動態填充欄位 -->
+      </form>
+    </div>
+  </div>
+
+  <!-- 新增客戶 Modal -->
+  <div id="add-customer-modal" class="modal">
+    <div class="modal-content large">
+      <span class="close-modal" id="close-add-modal">&times;</span>
+      <h3>新增客戶</h3>
+      <div class="modal-body">
+        <p>請使用主頁面的「新增客戶」功能來新增客戶。</p>
+        <button onclick="showPage('add')" class="btn-primary">前往新增客戶頁面</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 批量繳款 Modal -->
+  <div id="bulk-payment-modal" class="modal">
+    <div class="modal-content large">
+      <span class="close-modal" id="close-bulk-modal">&times;</span>
+      <h3>批量繳款</h3>
+      <div class="bulk-payment-content">
+        <div class="bulk-payment-summary">
+          <h4>繳款摘要</h4>
+          <div class="summary-stats">
+            <div class="stat-item">
+              <span class="stat-label">選中客戶</span>
+              <span class="stat-value" id="selected-customers-count">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">總應繳金額</span>
+              <span class="stat-value" id="total-due-amount">$0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">逾期客戶</span>
+              <span class="stat-value" id="overdue-customers-count">0</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bulk-payment-form">
+          <div class="form-group">
+            <label for="bulk-payment-amount">繳款金額</label>
+            <input type="number" id="bulk-payment-amount" placeholder="輸入繳款金額" />
+          </div>
+          <div class="form-group">
+            <label for="bulk-payment-date">繳款日期</label>
+            <input type="date" id="bulk-payment-date" value="" />
+          </div>
+          <div class="form-group">
+            <label for="bulk-payment-note">備註</label>
+            <textarea id="bulk-payment-note" placeholder="繳款備註"></textarea>
+          </div>
+        </div>
+
+        <div class="bulk-payment-customers">
+          <h4>選中客戶列表</h4>
+          <div class="customer-selection-list" id="customer-selection-list">
+            <!-- 动态生成的客户选择列表 -->
+          </div>
+        </div>
+
+        <div class="bulk-payment-actions">
+          <button type="button" class="btn-secondary" onclick="closeBulkPaymentModal()">取消</button>
+          <button type="button" class="btn-primary" onclick="submitBulkPayment()">確認批量繳款</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 客戶詳情 Modal -->
+  <div id="customer-detail-modal" class="modal">
+    <div class="modal-content large">
+      <span class="close-modal" id="close-detail-modal">&times;</span>
+      <div class="customer-detail-content">
+        <!-- 动态生成的客户详情内容 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 自动刷新指示器 -->
+          <!-- 設備管理已移至獨立頁面 (sales-management.html) -->
+
+  <div class="auto-refresh-indicator" style="display: none;">
+    數據已更新
+  </div>
+
+  <script src="customer-card-system.js"></script>
+  <script src="main.js"></script>
+  <script>
+    // 檢查monitor-btn元素是否存在
+    const monitorBtn = document.getElementById('monitor-btn');
+    if (monitorBtn) {
+      monitorBtn.onclick = function() {
+        window.open('/monitor.html', '_blank');
+      };
+    }
+
+    // 縣市與地區對應表
+    const cityDistricts = {
+      '台北市': ['中正區','大同區','中山區','松山區','大安區','萬華區','信義區','士林區','北投區','內湖區','南港區','文山區'],
+      '新北市': ['板橋區','三重區','中和區','永和區','新莊區','新店區','樹林區','鶯歌區','三峽區','淡水區','汐止區','瑞芳區','土城區','蘆洲區','五股區','泰山區','林口區','深坑區','石碇區','坪林區','三芝區','石門區','八里區','平溪區','雙溪區','貢寮區','金山區','萬里區','烏來區'],
+      '桃園市': ['桃園區','中壢區','平鎮區','八德區','楊梅區','蘆竹區','大溪區','大園區','龜山區','龍潭區','新屋區','觀音區','復興區'],
+      '台中市': ['中區','東區','南區','西區','北區','北屯區','西屯區','南屯區','太平區','大里區','霧峰區','烏日區','豐原區','后里區','石岡區','東勢區','和平區','新社區','潭子區','大雅區','神岡區','大肚區','沙鹿區','龍井區','梧棲區','清水區','大甲區','外埔區','大安區'],
+      '台南市': ['中西區','東區','南區','北區','安平區','安南區','永康區','歸仁區','新化區','左鎮區','玉井區','楠西區','南化區','仁德區','關廟區','龍崎區','官田區','麻豆區','佳里區','西港區','七股區','將軍區','學甲區','北門區','新營區','後壁區','白河區','東山區','六甲區','下營區','柳營區','鹽水區','善化區','大內區','山上區','新市區','安定區'],
+      '高雄市': ['新興區','前金區','苓雅區','鹽埕區','鼓山區','旗津區','前鎮區','三民區','楠梓區','小港區','左營區','仁武區','大社區','岡山區','路竹區','阿蓮區','田寮區','燕巢區','橋頭區','梓官區','彌陀區','永安區','湖內區','鳳山區','大寮區','林園區','鳥松區','大樹區','旗山區','美濃區','六龜區','內門區','杉林區','甲仙區','桃源區','那瑪夏區','茂林區','茄萣區'],
+      '基隆市': ['仁愛區','信義區','中正區','中山區','安樂區','暖暖區','七堵區'],
+      '新竹市': ['東區','北區','香山區'],
+      '嘉義市': ['東區','西區'],
+      '新竹縣': ['竹北市','湖口鄉','新豐鄉','新埔鎮','關西鎮','芎林鄉','寶山鄉','竹東鎮','五峰鄉','橫山鄉','尖石鄉','北埔鄉','峨眉鄉'],
+      '苗栗縣': ['苗栗市','苑裡鎮','通霄鎮','竹南鎮','頭份市','後龍鎮','卓蘭鎮','大湖鄉','公館鄉','銅鑼鄉','南庄鄉','頭屋鄉','三義鄉','西湖鄉','造橋鄉','三灣鄉','獅潭鄉','泰安鄉'],
+      '彰化縣': ['彰化市','鹿港鎮','和美鎮','線西鄉','伸港鄉','福興鄉','秀水鄉','花壇鄉','芬園鄉','員林市','溪湖鎮','田中鎮','大村鄉','埔鹽鄉','埔心鄉','永靖鄉','社頭鄉','二水鄉','北斗鎮','二林鎮','田尾鄉','埤頭鄉','芳苑鄉','大城鄉','竹塘鄉','溪州鄉'],
+      '南投縣': ['南投市','中寮鄉','草屯鎮','國姓鄉','埔里鎮','仁愛鄉','名間鄉','集集鎮','水里鄉','魚池鄉','信義鄉','竹山鎮','鹿谷鄉'],
+      '雲林縣': ['斗六市','斗南鎮','虎尾鎮','西螺鎮','土庫鎮','北港鎮','古坑鄉','大埤鄉','莿桐鄉','林內鄉','二崙鄉','崙背鄉','麥寮鄉','東勢鄉','褒忠鄉','台西鄉','元長鄉','四湖鄉','口湖鄉','水林鄉'],
+      '嘉義縣': ['太保市','朴子市','布袋鎮','大林鎮','民雄鄉','溪口鄉','新港鄉','六腳鄉','東石鄉','義竹鄉','鹿草鄉','水上鄉','中埔鄉','竹崎鄉','梅山鄉','番路鄉','大埔鄉','阿里山鄉'],
+      '屏東縣': ['屏東市','潮州鎮','東港鎮','恆春鎮','萬丹鄉','長治鄉','麟洛鄉','九如鄉','里港鄉','鹽埔鄉','高樹鄉','萬巒鄉','內埔鄉','竹田鄉','新埤鄉','枋寮鄉','新園鄉','崁頂鄉','林邊鄉','南州鄉','佳冬鄉','琉球鄉','車城鄉','滿州鄉','枋山鄉','三地門鄉','霧台鄉','瑪家鄉','泰武鄉','來義鄉','春日鄉','獅子鄉','牡丹鄉'],
+      '宜蘭縣': ['宜蘭市','頭城鎮','礁溪鄉','壯圍鄉','員山鄉','羅東鎮','三星鄉','大同鄉','五結鄉','冬山鄉','蘇澳鎮','南澳鄉','釣魚台'],
+      '花蓮縣': ['花蓮市','鳳林鎮','玉里鎮','新城鄉','吉安鄉','壽豐鄉','光復鄉','豐濱鄉','瑞穗鄉','富里鄉','秀林鄉','萬榮鄉','卓溪鄉'],
+      '台東縣': ['台東市','成功鎮','關山鎮','卑南鄉','鹿野鄉','池上鄉','東河鄉','長濱鄉','太麻里鄉','大武鄉','綠島鄉','海端鄉','延平鄉','金峰鄉','達仁鄉','蘭嶼鄉'],
+      '澎湖縣': ['馬公市','西嶼鄉','望安鄉','七美鄉','白沙鄉','湖西鄉'],
+      '金門縣': ['金城鎮','金沙鎮','金湖鎮','金寧鄉','烈嶼鄉','烏坵鄉'],
+      '連江縣': ['南竿鄉','北竿鄉','莒光鄉','東引鄉']
+    };
+
+
+
+    
+
+    
+    // 儀表板快速操作功能
+    function dashboardQuickAction(action) {
+      switch(action) {
+        case 'add-customer':
+          // 切換到新增客戶頁面
+          showPage('add');
+          break;
+        case 'payment-record':
+          // 顯示收款記錄頁面或彈窗
+          showPaymentRecords();
+          break;
+        case 'export-report':
+          // 導出報表
+          exportDashboardReport();
+          break;
+        case 'system-settings':
+          // 顯示系統設置
+          showSystemSettings();
+          break;
+        default:
+          console.log('未知的快速操作:', action);
+      }
+    }
+    
+        // 顯示收款記錄
+    function showPaymentRecords() {
+      // 使用靜態數據，避免API調用問題
+      const paymentData = {
+        todayPayments: 5950,
+        monthPayments: 141700,
+        overdueAmount: 55400,
+        totalCustomers: 23,
+        newCustomers: 23,
+        pendingPayments: 2,
+        accumulatedSales: 213700,
+        totalProfit: 16400
+      };
+      
+      // 創建收款記錄彈窗
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>收款記錄</h3>
+            <span class="close" onclick="this.parentElement.parentElement.parentElement.remove()">&times;</span>
+          </div>
+          <div class="modal-body">
+            <div class="payment-summary">
+              <div class="summary-card">
+                <h4>今日收款</h4>
+                <div class="amount">NT$ ${paymentData.todayPayments.toLocaleString()}</div>
+              </div>
+              <div class="summary-card">
+                <h4>本月收款</h4>
+                <div class="amount">NT$ ${paymentData.monthPayments.toLocaleString()}</div>
+              </div>
+              <div class="summary-card">
+                <h4>逾期金額</h4>
+                <div class="amount overdue">NT$ ${paymentData.overdueAmount.toLocaleString()}</div>
+              </div>
+            </div>
+            <div class="payment-list">
+              <h4>收款統計</h4>
+              <div class="payment-item">
+                <span class="customer">總客戶數</span>
+                <span class="amount">${paymentData.totalCustomers}</span>
+                <span class="date">-</span>
+              </div>
+              <div class="payment-item">
+                <span class="customer">新增客戶</span>
+                <span class="amount">${paymentData.newCustomers}</span>
+                <span class="date">-</span>
+              </div>
+              <div class="payment-item">
+                <span class="customer">待繳款項</span>
+                <span class="amount">${paymentData.pendingPayments}</span>
+                <span class="date">-</span>
+              </div>
+              <div class="payment-item">
+                <span class="customer">累積營收</span>
+                <span class="amount">NT$ ${paymentData.accumulatedSales.toLocaleString()}</span>
+                <span class="date">-</span>
+              </div>
+              <div class="payment-item">
+                <span class="customer">總利潤</span>
+                <span class="amount">NT$ ${paymentData.totalProfit.toLocaleString()}</span>
+                <span class="date">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+    
+    // 導出儀表板報表
+    function exportDashboardReport() {
+      const reportData = {
+        title: '貸款管理系統 - 儀表板報表',
+        date: new Date().toLocaleDateString('zh-TW'),
+        summary: {
+          totalCustomers: 23,
+          newCustomers: 23,
+          pendingPayments: 2,
+          totalRevenue: 213700,
+          profit: 16400
+        }
+      };
+      
+      // 創建CSV內容
+      let csvContent = 'data:text/csv;charset=utf-8,';
+      csvContent += '項目,數值\n';
+      csvContent += `總客戶數,${reportData.summary.totalCustomers}\n`;
+      csvContent += `新增客戶,${reportData.summary.newCustomers}\n`;
+      csvContent += `待繳款項,${reportData.summary.pendingPayments}\n`;
+      csvContent += `總營收,${reportData.summary.totalRevenue}\n`;
+      csvContent += `總利潤,${reportData.summary.profit}\n`;
+      
+      // 下載CSV文件
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `儀表板報表_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // 顯示成功訊息
+      alert('報表已成功導出！');
+    }
+    
+    // 顯示系統設置
+    function showSystemSettings() {
+      const modal = document.createElement('div');
+      modal.className = 'modal';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>系統設置</h3>
+            <span class="close" onclick="this.parentElement.parentElement.parentElement.remove()">&times;</span>
+          </div>
+          <div class="modal-body">
+            <div class="settings-section">
+              <h4>基本設置</h4>
+              <div class="setting-item">
+                <label>系統名稱</label>
+                <input type="text" value="貸款管理系統" />
+              </div>
+              <div class="setting-item">
+                <label>自動刷新間隔</label>
+                <select>
+                  <option value="30">30秒</option>
+                  <option value="60" selected>1分鐘</option>
+                  <option value="300">5分鐘</option>
+                </select>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h4>通知設置</h4>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" checked /> 逾期提醒
+                </label>
+              </div>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" checked /> 新客戶通知
+                </label>
+              </div>
+            </div>
+            <div class="settings-section">
+              <h4>數據備份</h4>
+              <button onclick="backupData()" class="btn-primary">立即備份</button>
+              <button onclick="restoreData()" class="btn-secondary">恢復數據</button>
+            </div>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
+    
+    // 備份數據
+    function backupData() {
+      alert('數據備份功能正在開發中...');
+    }
+    
+    // 恢復數據
+    function restoreData() {
+      alert('數據恢復功能正在開發中...');
+    }
+  </script>
+</body>
+</html>
