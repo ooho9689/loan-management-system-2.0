@@ -8,7 +8,7 @@
     "*.json"
   ],
   "watch": [
-    "server.js",
+    "app.js",
     "routes/",
     "middleware/",
     "utils/",

@@ -163,6 +163,8 @@ Thumbs.db
 # Project specific
 uploads/
 backups/
+logs/
+logs.json
 *.bak
 *.backup
 data.bak.json
