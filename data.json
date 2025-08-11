@@ -74,8 +74,13 @@
           "amount": 2900
         }
       ],
-      "nextDueOverride": "2025-05-10T00:00:00.000Z",
-      "salesId": "1746776755538"
+      "nextDueOverride": "",
+      "salesId": "1746776755538",
+      "birthday": "",
+      "occupation": "",
+      "source": "",
+      "emergencyContactName": "",
+      "emergencyContactPhone": ""
     },
     {
       "id": "1746674140503",

@@ -246,30 +246,30 @@ class CustomerCardSystem {
     const unpaidAmount = this.getUnpaidAmount(customer);
     const totalPaid = (customer.payments || []).reduce((sum, p) => sum + Number(p.amount), 0);
 
-    const cardClass = `customer-card-new ${status}`;
+    const cardClass = `customer-card ${status}`;
     
     return `
       <div class="${cardClass}" data-customer-id="${customer.id}">
-        <div class="customer-header-new">
+        <div class="customer-header">
           <div class="customer-info-main">
             <div class="customer-name">${customer.name}</div>
             <div class="customer-id">ID: ${customer.id}</div>
-            <div class="customer-status-new">
-              <span class="status-badge-new ${status}">${this.getStatusText(status)}</span>
+            <div class="customer-status">
+              <span class="status-badge ${status}">${this.getStatusText(status)}</span>
             </div>
           </div>
-          <div class="customer-actions-new">
-            <button class="action-btn-new primary" onclick="customerCardSystem.showPaymentModal('${customer.id}')">
+          <div class="customer-actions">
+            <button class="action-btn primary" onclick="customerCardSystem.showPaymentModal('${customer.id}')">
               💰 繳款
             </button>
-            <button class="action-btn-new secondary" onclick="customerCardSystem.showCustomerDetail('${customer.id}')">
+            <button class="action-btn secondary" onclick="customerCardSystem.showCustomerDetail('${customer.id}')">
               📋 詳情
             </button>
           </div>
         </div>
 
         <div class="customer-info-grid">
-          <div class="info-section-new">
+          <div class="info-section">
             <h4>基本資訊</h4>
             <div class="info-item">
               <span class="info-label">手機號碼</span>
@@ -289,7 +289,7 @@ class CustomerCardSystem {
             </div>
           </div>
 
-          <div class="info-section-new">
+          <div class="info-section">
             <h4>財務狀況</h4>
             <div class="info-item">
               <span class="info-label">租金</span>
@@ -322,26 +322,26 @@ class CustomerCardSystem {
           </div>
         </div>
 
-        <div class="customer-actions-new">
-          <button class="action-btn-new primary" onclick="customerCardSystem.showPaymentModal('${customer.id}')">
+        <div class="customer-actions">
+          <button class="action-btn primary" onclick="customerCardSystem.showPaymentModal('${customer.id}')">
             💰 繳款
           </button>
-          <button class="action-btn-new secondary" onclick="customerCardSystem.editCustomer('${customer.id}')">
+          <button class="action-btn secondary" onclick="customerCardSystem.editCustomer('${customer.id}')">
             ✏️ 編輯
           </button>
-          <button class="action-btn-new secondary" onclick="customerCardSystem.showCustomerDetail('${customer.id}')">
+          <button class="action-btn secondary" onclick="customerCardSystem.showCustomerDetail('${customer.id}')">
             📋 詳情
           </button>
-          <button class="action-btn-new secondary" onclick="customerCardSystem.generateContract('${customer.id}')">
+          <button class="action-btn secondary" onclick="customerCardSystem.generateContract('${customer.id}')">
             📄 合約
           </button>
-          <button class="action-btn-new warning" onclick="customerCardSystem.changeStatus('${customer.id}', 'buyback')">
+          <button class="action-btn warning" onclick="customerCardSystem.changeStatus('${customer.id}', 'buyback')">
             ✅ 已買回
           </button>
-          <button class="action-btn-new danger" onclick="customerCardSystem.changeStatus('${customer.id}', 'locked')">
+          <button class="action-btn danger" onclick="customerCardSystem.changeStatus('${customer.id}', 'locked')">
             ${customer.status === 'locked' ? '🔓 取消呆帳' : '🔒 呆帳'}
           </button>
-          <button class="action-btn-new danger" onclick="customerCardSystem.deleteCustomer('${customer.id}')">
+          <button class="action-btn danger" onclick="customerCardSystem.deleteCustomer('${customer.id}')">
             🗑️ 刪除
           </button>
         </div>
@@ -351,7 +351,7 @@ class CustomerCardSystem {
 
   bindCardEvents() {
     // 客户卡片选择功能
-    document.querySelectorAll('.customer-card-new').forEach(card => {
+    document.querySelectorAll('.customer-card').forEach(card => {
       card.addEventListener('click', (e) => {
         if (e.target.tagName === 'BUTTON') return;
         
@@ -569,7 +569,7 @@ class CustomerCardSystem {
             <div style="font-size: 12px; color: #666;">${customer.phone}</div>
           </div>
           <div style="text-align: right;">
-            <div class="status-badge-new ${status}">${this.getStatusText(status)}</div>
+            <div class="status-badge ${status}">${this.getStatusText(status)}</div>
             <div style="font-size: 14px; color: #e74c3c;">未繳: ${this.formatCurrency(unpaidAmount)}</div>
           </div>
         </div>
@@ -651,7 +651,7 @@ class CustomerCardSystem {
         <div class="detail-header">
           <h3>${customer.name} - 客戶詳情</h3>
           <div class="detail-status">
-            <span class="status-badge-new ${this.getCustomerStatus(customer)}">${this.getStatusText(this.getCustomerStatus(customer))}</span>
+            <span class="status-badge ${this.getCustomerStatus(customer)}">${this.getStatusText(this.getCustomerStatus(customer))}</span>
           </div>
         </div>
 
@@ -775,21 +775,21 @@ class CustomerCardSystem {
                 <div class="payment-record" data-customer-id="${customer.id}" data-index="${index}">
                   <div class="payment-date">
                     <input type="date" class="payment-date-input" value="${this.formatDateForInput(payment.date)}" 
-                           onchange="updatePaymentField('${customer.id}', ${index}, 'date', this.value)">
+                           onchange="customerCardSystem.updatePaymentField('${customer.id}', ${index}, 'date', this.value)">
                   </div>
                   <div class="payment-amount">
                     <input type="number" class="payment-amount-input" value="${payment.amount}" 
-                           onchange="updatePaymentField('${customer.id}', ${index}, 'amount', this.value)">
+                           onchange="customerCardSystem.updatePaymentField('${customer.id}', ${index}, 'amount', this.value)">
                   </div>
                   <div class="payment-note">
                     <input type="text" class="payment-note-input" value="${payment.note || ''}" 
-                           placeholder="備註" onchange="updatePaymentField('${customer.id}', ${index}, 'note', this.value)">
+                           placeholder="備註" onchange="customerCardSystem.updatePaymentField('${customer.id}', ${index}, 'note', this.value)">
                   </div>
                   <div class="payment-actions">
-                    <button class="action-btn-new small" onclick="savePaymentChanges('${customer.id}', ${index})">
+                    <button class="action-btn small" onclick="customerCardSystem.savePaymentChanges('${customer.id}', ${index})">
                       💾 儲存
                     </button>
-                    <button class="action-btn-new small danger" onclick="deletePayment('${customer.id}', ${index})">
+                    <button class="action-btn small danger" onclick="customerCardSystem.deletePayment('${customer.id}', ${index})">
                       🗑️ 刪除
                     </button>
                   </div>
@@ -842,19 +842,19 @@ class CustomerCardSystem {
         </div>
 
         <div class="detail-actions">
-          <button class="action-btn-new primary" onclick="customerCardSystem.showPaymentModal('${customer.id}')">
+          <button class="action-btn primary" onclick="customerCardSystem.showPaymentModal('${customer.id}')">
             💰 繳款
           </button>
-          <button class="action-btn-new secondary" onclick="customerCardSystem.editCustomer('${customer.id}')">
+          <button class="action-btn secondary" onclick="customerCardSystem.editCustomer('${customer.id}')">
             ✏️ 編輯
           </button>
-          <button class="action-btn-new secondary" onclick="customerCardSystem.generateContract('${customer.id}')">
+          <button class="action-btn secondary" onclick="customerCardSystem.generateContract('${customer.id}')">
             📄 合約
           </button>
-          <button class="action-btn-new warning" onclick="customerCardSystem.changeStatus('${customer.id}', 'buyback')">
+          <button class="action-btn warning" onclick="customerCardSystem.changeStatus('${customer.id}', 'buyback')">
             ✅ 已買回
           </button>
-          <button class="action-btn-new danger" onclick="customerCardSystem.changeStatus('${customer.id}', 'locked')">
+          <button class="action-btn danger" onclick="customerCardSystem.changeStatus('${customer.id}', 'locked')">
             ${customer.status === 'locked' ? '🔓 取消呆帳' : '🔒 呆帳'}
           </button>
         </div>
@@ -912,18 +912,43 @@ class CustomerCardSystem {
 
   // 编辑客户
   editCustomer(customerId) {
-    const customer = this.allCustomers.find(c => c.id === customerId);
-    if (!customer) {
-      this.showNotification('找不到客戶資料', 'error');
-      return;
-    }
-
-    // 使用 main.js 中的编辑功能
+    console.log('客戶卡系統 - 編輯客戶:', customerId);
+    
+    // 優先使用 main.js 中的完整编辑功能
     if (typeof window.mainEditCustomer === 'function') {
+      console.log('使用 main.js 的 editCustomer 函數');
       window.mainEditCustomer(customerId);
     } else {
-      // 如果 main.js 的 editCustomer 不可用，使用简单的编辑方式
-      this.showSimpleEditModal(customer);
+      console.log('main.js 的 editCustomer 不可用，使用備用方案');
+      // 如果 main.js 的 editCustomer 不可用，嘗試使用 fillEditForm
+      const customer = this.allCustomers.find(c => c.id === customerId);
+      if (!customer) {
+        this.showNotification('找不到客戶資料', 'error');
+        return;
+      }
+      
+      // 嘗試使用 main.js 中的 fillEditForm 函數
+      if (typeof window.fillEditForm === 'function') {
+        console.log('使用 main.js 的 fillEditForm 函數');
+        window.fillEditForm(customer).then(() => {
+          const editModal = document.getElementById('edit-modal');
+          if (editModal) {
+            editModal.style.display = 'flex';
+            editModal.classList.add('active');
+          } else {
+            console.log('找不到編輯模態框，使用简单编辑方式');
+            // 如果找不到編輯模態框，使用简单编辑方式
+            this.showSimpleEditModal(customer);
+          }
+        }).catch(error => {
+          console.error('fillEditForm 出錯:', error);
+          this.showSimpleEditModal(customer);
+        });
+      } else {
+        console.log('使用簡單編輯方式');
+        // 如果都不可用，使用简单的编辑方式
+        this.showSimpleEditModal(customer);
+      }
     }
   }
 
@@ -985,6 +1010,16 @@ class CustomerCardSystem {
                   <input type="number" name="salePrice" value="${customer.salePrice || ''}">
                 </div>
               </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>合約起始日</label>
+                  <input type="date" name="contractDate" value="${customer.contractDate || ''}">
+                </div>
+                <div class="form-group">
+                  <label>繳款週期（天）</label>
+                  <input type="number" name="paymentCycleDays" value="${customer.paymentCycleDays || 30}">
+                </div>
+              </div>
             </div>
 
             <!-- 財務資訊 -->
@@ -1002,8 +1037,47 @@ class CustomerCardSystem {
               </div>
               <div class="form-row">
                 <div class="form-group">
+                  <label>銀行戶名</label>
+                  <input type="text" name="bankAccountName" value="${customer.bankAccountName || ''}">
+                </div>
+                <div class="form-group">
                   <label>下次應繳日覆蓋</label>
                   <input type="date" name="nextDueOverride" value="${customer.nextDueOverride || ''}">
+                </div>
+              </div>
+            </div>
+
+            <!-- 檔案上傳 -->
+            <div class="form-section" data-section="files">
+              <h4>檔案上傳</h4>
+              <div class="file-upload-grid">
+                <div class="file-upload-item">
+                  <label>身分證正面</label>
+                  <input type="file" name="idFront" accept="image/*">
+                  <div class="file-preview">
+                    ${customer.idFront ? `<div class="file-info"><a href="/uploads/${customer.idFront}" target="_blank">查看檔案</a></div>` : ''}
+                  </div>
+                </div>
+                <div class="file-upload-item">
+                  <label>身分證反面</label>
+                  <input type="file" name="idBack" accept="image/*">
+                  <div class="file-preview">
+                    ${customer.idBack ? `<div class="file-info"><a href="/uploads/${customer.idBack}" target="_blank">查看檔案</a></div>` : ''}
+                  </div>
+                </div>
+                <div class="file-upload-item">
+                  <label>存摺封面</label>
+                  <input type="file" name="billPhoto" accept="image/*">
+                  <div class="file-preview">
+                    ${customer.billPhoto ? `<div class="file-info"><a href="/uploads/${customer.billPhoto}" target="_blank">查看檔案</a></div>` : ''}
+                  </div>
+                </div>
+                <div class="file-upload-item">
+                  <label>合約PDF</label>
+                  <input type="file" name="contractPdf" accept=".pdf">
+                  <div class="file-preview">
+                    ${customer.contractPdf ? `<div class="file-info"><a href="/uploads/${customer.contractPdf}" target="_blank">查看檔案</a></div>` : ''}
+                  </div>
                 </div>
               </div>
             </div>
@@ -1016,6 +1090,7 @@ class CustomerCardSystem {
               <span class="indicator active" data-section="basic">1</span>
               <span class="indicator" data-section="rental">2</span>
               <span class="indicator" data-section="financial">3</span>
+              <span class="indicator" data-section="files">4</span>
             </div>
             <button type="button" class="nav-btn" id="edit-next-section">下一步</button>
           </div>
@@ -1054,7 +1129,7 @@ class CustomerCardSystem {
 
   // 設置簡單編輯表單導航
   setupSimpleEditNavigation(modal) {
-    const sections = ['basic', 'rental', 'financial'];
+    const sections = ['basic', 'rental', 'financial', 'files'];
     let currentSectionIndex = 0;
 
     const showSection = (index) => {
@@ -1120,8 +1195,11 @@ class CustomerCardSystem {
       imei: formData.get('imei') || null,
       rent: parseFloat(formData.get('rent')) || 0,
       salePrice: parseFloat(formData.get('salePrice')) || null,
+      contractDate: formData.get('contractDate') || null,
+      paymentCycleDays: parseInt(formData.get('paymentCycleDays')) || 30,
       bank: formData.get('bank') || null,
       bankAccountNumber: formData.get('bankAccountNumber') || null,
+      bankAccountName: formData.get('bankAccountName') || null,
       nextDueOverride: formData.get('nextDueOverride') || null
     };
 
@@ -1150,71 +1228,81 @@ class CustomerCardSystem {
 
   // 改变客户状态
   async changeStatus(customerId, newStatus) {
-    // 获取当前客户信息
-    const customer = this.allCustomers.find(c => c.id === customerId);
-    if (!customer) {
-      this.showNotification('找不到客戶資料', 'error');
-      return;
-    }
-
-    // 如果当前状态是呆帳，再次点击呆帳按钮则取消呆帳
-    if (newStatus === 'locked' && customer.status === 'locked') {
-      if (!confirm('確定要取消呆帳狀態，將客戶改回租賃中嗎？')) {
-        return;
-      }
-      newStatus = 'renting'; // 改回租賃中狀態
+    // 使用 main.js 中的状态更改功能
+    if (typeof window.changeCustomerStatus === 'function') {
+      window.changeCustomerStatus(customerId, newStatus);
     } else {
-      if (!confirm(`確定要將客戶狀態改為 ${this.getStatusText(newStatus)} 嗎？`)) {
+      // 获取当前客户信息
+      const customer = this.allCustomers.find(c => c.id === customerId);
+      if (!customer) {
+        this.showNotification('找不到客戶資料', 'error');
         return;
       }
-    }
 
-    try {
-      const response = await fetch(`/api/customers/${customerId}/status`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus })
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        const message = newStatus === 'renting' ? '已取消呆帳，客戶狀態改回租賃中' : '狀態更新成功';
-        this.showNotification(message, 'success');
-        // 立即重新加载数据
-        await this.loadCustomers();
-        // 添加更新动画
-        this.addUpdateAnimation(customerId);
+      // 如果当前状态是呆帳，再次点击呆帳按钮则取消呆帳
+      if (newStatus === 'locked' && customer.status === 'locked') {
+        if (!confirm('確定要取消呆帳狀態，將客戶改回租賃中嗎？')) {
+          return;
+        }
+        newStatus = 'renting'; // 改回租賃中狀態
       } else {
-        this.showNotification(result.message || result.error || '狀態更新失敗', 'error');
+        if (!confirm(`確定要將客戶狀態改為 ${this.getStatusText(newStatus)} 嗎？`)) {
+          return;
+        }
       }
-    } catch (error) {
-      console.error('更新状态失败:', error);
-      this.showNotification('狀態更新失敗', 'error');
+
+      try {
+        const response = await fetch(`/api/customers/${customerId}/status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status: newStatus })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          const message = newStatus === 'renting' ? '已取消呆帳，客戶狀態改回租賃中' : '狀態更新成功';
+          this.showNotification(message, 'success');
+          // 立即重新加载数据
+          await this.loadCustomers();
+          // 添加更新动画
+          this.addUpdateAnimation(customerId);
+        } else {
+          this.showNotification(result.message || result.error || '狀態更新失敗', 'error');
+        }
+      } catch (error) {
+        console.error('更新状态失败:', error);
+        this.showNotification('狀態更新失敗', 'error');
+      }
     }
   }
 
   // 删除客户
   async deleteCustomer(customerId) {
-    if (!confirm('確定要刪除這位客戶嗎？此操作無法復原！')) {
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/customers/${customerId}`, {
-        method: 'DELETE'
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        this.showNotification('客戶刪除成功', 'success');
-        // 立即重新加载数据
-        await this.loadCustomers();
-      } else {
-        this.showNotification(result.message || result.error || '刪除失敗', 'error');
+    // 使用 main.js 中的删除功能
+    if (typeof window.deleteCustomer === 'function') {
+      window.deleteCustomer(customerId);
+    } else {
+      if (!confirm('確定要刪除這位客戶嗎？此操作無法復原！')) {
+        return;
       }
-    } catch (error) {
-      console.error('刪除客戶失敗:', error);
-      this.showNotification('刪除失敗，請稍後再試', 'error');
+
+      try {
+        const response = await fetch(`/api/customers/${customerId}`, {
+          method: 'DELETE'
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          this.showNotification('客戶刪除成功', 'success');
+          // 立即重新加载数据
+          await this.loadCustomers();
+        } else {
+          this.showNotification(result.message || result.error || '刪除失敗', 'error');
+        }
+      } catch (error) {
+        console.error('刪除客戶失敗:', error);
+        this.showNotification('刪除失敗，請稍後再試', 'error');
+      }
     }
   }
 
@@ -1272,28 +1360,43 @@ class CustomerCardSystem {
 
   // 工具方法
   getStatusText(status) {
-    const statusMap = {
-      'renting': '租賃中',
-      'overdue': '逾期',
-      'due-today': '本日應繳',
-      'locked': '呆帳',
-      'buyback': '已買回',
-      'normal': '正常'
-    };
-    return statusMap[status] || status;
+    // 使用 main.js 中的狀態文字功能
+    if (typeof window.getStatusText === 'function') {
+      return window.getStatusText(status);
+    } else {
+      const statusMap = {
+        'renting': '租賃中',
+        'overdue': '逾期',
+        'due-today': '本日應繳',
+        'locked': '呆帳',
+        'buyback': '已買回',
+        'normal': '正常'
+      };
+      return statusMap[status] || status;
+    }
   }
 
   formatCurrency(amount) {
-    return new Intl.NumberFormat('zh-TW', {
-      style: 'currency',
-      currency: 'TWD',
-      minimumFractionDigits: 0
-    }).format(amount || 0);
+    // 使用 main.js 中的格式化功能
+    if (typeof window.formatCurrency === 'function') {
+      return window.formatCurrency(amount || 0);
+    } else {
+      return new Intl.NumberFormat('zh-TW', {
+        style: 'currency',
+        currency: 'TWD',
+        minimumFractionDigits: 0
+      }).format(amount || 0);
+    }
   }
 
   formatDate(date) {
-    if (!date) return '-';
-    return new Date(date).toLocaleDateString('zh-TW');
+    // 使用 main.js 中的格式化功能
+    if (typeof window.formatDate === 'function') {
+      return window.formatDate(date);
+    } else {
+      if (!date) return '-';
+      return new Date(date).toLocaleDateString('zh-TW');
+    }
   }
 
   formatDateForInput(dateString) {
@@ -1310,17 +1413,18 @@ class CustomerCardSystem {
         body: JSON.stringify({ [field]: value })
       });
 
-      if (response.ok) {
+      const result = await response.json();
+      if (result.success) {
         this.showNotification('繳款紀錄更新成功', 'success');
         // 重新加载客户数据
         await this.loadCustomers();
         // 如果当前在详情页面，重新显示详情
         const detailModal = document.getElementById('customer-detail-modal');
-        if (detailModal.style.display === 'flex') {
+        if (detailModal && detailModal.style.display === 'flex') {
           this.showCustomerDetail(customerId);
         }
       } else {
-        this.showNotification('繳款紀錄更新失敗', 'error');
+        this.showNotification(result.message || '繳款紀錄更新失敗', 'error');
       }
     } catch (error) {
       console.error('更新繳款紀錄失败:', error);
@@ -1396,22 +1500,27 @@ class CustomerCardSystem {
   }
 
   showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-    notification.textContent = message;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-      notification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-      notification.classList.remove('show');
+    // 使用 main.js 中的通知功能
+    if (typeof window.showNotification === 'function') {
+      window.showNotification(message, type);
+    } else {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      
+      document.body.appendChild(notification);
+      
       setTimeout(() => {
-        document.body.removeChild(notification);
-      }, 300);
-    }, 3000);
+        notification.classList.add('show');
+      }, 100);
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
   }
 }
 
@@ -1426,13 +1535,10 @@ window.generateContract = (customerId) => customerCardSystem.generateContract(cu
 window.changeStatus = (customerId, status) => customerCardSystem.changeStatus(customerId, status);
 window.deleteCustomer = (customerId) => customerCardSystem.deleteCustomer(customerId);
 
-// 編輯客戶功能 - 優先使用 main.js 中的函數，如果不可用則使用 customer-card-system.js 中的函數
+// 編輯客戶功能 - 直接使用 customer-card-system 中的函數
 window.editCustomer = (customerId) => {
-  if (typeof window.mainEditCustomer === 'function') {
-    window.mainEditCustomer(customerId);
-  } else {
-    customerCardSystem.editCustomer(customerId);
-  }
+  console.log('全局 editCustomer 被調用:', customerId);
+  customerCardSystem.editCustomer(customerId);
 };
 
 // 缴款记录相关全局函数
@@ -1446,6 +1552,12 @@ window.deletePayment = (customerId, index) => customerCardSystem.deletePayment(c
     
     // 初始化文件上傳預覽功能
     setupFileUploadPreviews();
+    
+    // 如果當前頁面是客戶列表，立即載入客戶數據
+    const listPage = document.getElementById('list');
+    if (listPage && listPage.classList.contains('active')) {
+      customerCardSystem.loadCustomers();
+    }
   });
 
   // 設置文件上傳預覽功能

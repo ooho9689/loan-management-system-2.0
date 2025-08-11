@@ -1,6 +1,10 @@
 // 設備管理初始化變數
 let salesManagementInited = false;
 
+// 全局變量
+let allCustomersCache = [];
+window.allCustomers = allCustomersCache;
+
 // 工具函數
 function validateIdNumber(idNumber) {
     const regex = /^[A-Z][12]\d{8}$/;
@@ -57,7 +61,12 @@ function showPage(pageId) {
         targetPage.style.display = 'block';
         console.log('頁面已設為活動狀態');
         if (pageId === 'list') {
-            loadCustomers();
+            // 使用 customer-card-system.js 的客戶列表功能
+            if (window.customerCardSystem) {
+                window.customerCardSystem.loadCustomers();
+            } else {
+                loadCustomers();
+            }
         }
         if (pageId === 'dashboard') {
             loadDashboard();
@@ -143,7 +152,6 @@ const TABLE_HEADER_MAP = {
 };
 
 // 載入客戶列表
-let allCustomersCache = [];
 let currentFilter = 'all';
 let currentSearch = '';
 
@@ -161,6 +169,7 @@ async function loadCustomers() {
         const data = await response.json();
         console.log('API回傳 customers', data);
         allCustomersCache = Array.isArray(data) ? data : (data.customers || []);
+        window.allCustomers = allCustomersCache; // 更新全局變量
         console.log('收到客戶數據:', data);
 
         if (!data.customers || data.customers.length === 0) {
@@ -1808,10 +1817,25 @@ function getStatusIcon(status) {
 
 // 動態產生編輯表單
 async function fillEditForm(customer) {
+    console.log('開始填充編輯表單:', customer);
+    
     // 取得所有設備
-    const sales = await getAllSales();
-    let salesOptions = '<option value="">請選擇設備</option>' + sales.map(s => `<option value="${s.id}" ${customer.salesId===s.id?'selected':''}>${s.name}（${s.appleAccount}）</option>`).join('');
+    let salesOptions = '<option value="">請選擇設備</option>';
+    try {
+        const sales = await getAllSales();
+        salesOptions += sales.map(s => `<option value="${s.id}" ${customer.salesId===s.id?'selected':''}>${s.name}（${s.appleAccount}）</option>`).join('');
+    } catch (error) {
+        console.error('獲取設備列表失敗，使用預設選項:', error);
+        salesOptions += '<option value="">無法載入設備列表</option>';
+    }
+    
     const form = document.getElementById('edit-customer-form');
+    
+    if (!form) {
+        console.error('找不到編輯表單元素');
+        throw new Error('找不到編輯表單元素');
+    }
+    
     form.setAttribute('enctype', 'multipart/form-data');
     form.innerHTML = `
       <input type="hidden" name="id" value="${customer.id}" />
@@ -2084,25 +2108,62 @@ async function fillEditForm(customer) {
   
   // 設置編輯表單的導航
   setupEditFormNavigation();
+  
+  // 確保所有表單區塊都能正確顯示
+  console.log('編輯表單已填充完成');
 }
 
 // 設置編輯表單導航
 function setupEditFormNavigation() {
+  console.log('設置編輯表單導航');
+  
   const sections = ['basic', 'contact', 'rental', 'financial', 'files'];
   let currentSectionIndex = 0;
 
   const showSection = (index) => {
+    console.log('切換到表單區塊:', index, sections[index]);
+    
+    // 先隱藏所有區塊
     sections.forEach((section, i) => {
       const sectionElement = document.querySelector(`#edit-modal [data-section="${section}"]`);
       const indicator = document.querySelector(`#edit-modal .indicator[data-section="${section}"]`);
       
       if (sectionElement) {
-        sectionElement.classList.toggle('active', i === index);
+        sectionElement.style.display = 'none';
+        sectionElement.classList.remove('active');
+        console.log(`隱藏區塊: ${section}`);
       }
       if (indicator) {
-        indicator.classList.toggle('active', i === index);
+        indicator.classList.remove('active');
       }
     });
+    
+    // 顯示當前區塊
+    const currentSection = document.querySelector(`#edit-modal [data-section="${sections[index]}"]`);
+    const currentIndicator = document.querySelector(`#edit-modal .indicator[data-section="${sections[index]}"]`);
+    
+    if (currentSection) {
+      currentSection.style.display = 'block';
+      currentSection.classList.add('active');
+      console.log(`顯示區塊: ${sections[index]}, display: ${currentSection.style.display}, classList: ${currentSection.classList}`);
+      
+      // 強制重新計算樣式，確保顯示
+      currentSection.offsetHeight;
+      
+      // 確保檔案上傳區塊正確顯示
+      if (sections[index] === 'files') {
+        const fileGrid = currentSection.querySelector('.file-upload-grid');
+        if (fileGrid) {
+          fileGrid.style.display = 'grid';
+          console.log('檔案上傳網格已設置為顯示');
+        }
+      }
+    } else {
+      console.error(`找不到區塊元素: ${sections[index]}`);
+    }
+    if (currentIndicator) {
+      currentIndicator.classList.add('active');
+    }
 
     // 更新导航按钮状态
     const prevBtn = document.getElementById('edit-prev-section');
@@ -2112,31 +2173,100 @@ function setupEditFormNavigation() {
     if (nextBtn) nextBtn.disabled = index === sections.length - 1;
   };
 
-  document.getElementById('edit-prev-section')?.addEventListener('click', () => {
-    if (currentSectionIndex > 0) {
-      currentSectionIndex--;
-      showSection(currentSectionIndex);
-    }
-  });
+  // 移除舊的事件監聽器
+  const prevBtn = document.getElementById('edit-prev-section');
+  const nextBtn = document.getElementById('edit-next-section');
+  
+  if (prevBtn) {
+    prevBtn.removeEventListener('click', prevBtn._clickHandler);
+    prevBtn._clickHandler = () => {
+      if (currentSectionIndex > 0) {
+        currentSectionIndex--;
+        showSection(currentSectionIndex);
+      }
+    };
+    prevBtn.addEventListener('click', prevBtn._clickHandler);
+  }
 
-  document.getElementById('edit-next-section')?.addEventListener('click', () => {
-    if (currentSectionIndex < sections.length - 1) {
-      currentSectionIndex++;
-      showSection(currentSectionIndex);
-    }
-  });
+  if (nextBtn) {
+    nextBtn.removeEventListener('click', nextBtn._clickHandler);
+    nextBtn._clickHandler = () => {
+      if (currentSectionIndex < sections.length - 1) {
+        currentSectionIndex++;
+        showSection(currentSectionIndex);
+      }
+    };
+    nextBtn.addEventListener('click', nextBtn._clickHandler);
+  }
 
   // 指示器点击
   document.querySelectorAll('#edit-modal .indicator').forEach((indicator, index) => {
-    indicator.addEventListener('click', () => {
+    indicator.removeEventListener('click', indicator._clickHandler);
+    indicator._clickHandler = () => {
       currentSectionIndex = index;
       showSection(currentSectionIndex);
-    });
+    };
+    indicator.addEventListener('click', indicator._clickHandler);
   });
+  
+  // 初始化顯示第一個區塊
+  showSection(0);
 }
 
 // 將fillEditForm暴露到全局
 window.fillEditForm = fillEditForm;
+
+// 將editCustomer暴露到全局，供客戶卡系統調用
+window.mainEditCustomer = editCustomer;
+
+// 初始化函數
+function initializeApp() {
+    console.log('初始化應用程序');
+    
+    // 確保全局變量可用
+    window.allCustomers = allCustomersCache;
+    
+    // 設置編輯模態框的關閉事件
+    const editModal = document.getElementById('edit-modal');
+    if (editModal) {
+        const closeBtn = editModal.querySelector('.close-modal');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                editModal.style.display = 'none';
+                editModal.classList.remove('active');
+            });
+        }
+        
+        // 點擊模態框外部關閉
+        editModal.addEventListener('click', (e) => {
+            if (e.target === editModal) {
+                editModal.style.display = 'none';
+                editModal.classList.remove('active');
+            }
+        });
+    }
+    
+    // 設置其他模態框的關閉事件
+    document.querySelectorAll('.close-modal').forEach(closeBtn => {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const modal = closeBtn.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+                modal.classList.remove('active');
+            }
+        });
+    });
+    
+    console.log('應用程序初始化完成');
+}
+
+// 頁面加載完成後初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+    initializeApp();
+}
 
 // 繳款模態框
     const modal = document.getElementById('payment-modal');
@@ -3167,12 +3297,17 @@ function showDetailModal(label, type) {
     alert(`顯示${type === 'day' ? '日期' : '月份'}：${label} 的詳細明細（可自訂內容）`);
 }
 
-    // 取得所有設備（同步用）
-    async function getAllSales() {
-    const res = await fetch(`${API_BASE_URL}/api/sales`);
-    const data = await res.json();
-    console.log('API回傳 sales', data);
-    return Array.isArray(data) ? data : (data.sales || []);
+// 取得所有設備（同步用）
+async function getAllSales() {
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/sales`);
+        const data = await res.json();
+        console.log('API回傳 sales', data);
+        return Array.isArray(data) ? data : (data.sales || []);
+    } catch (error) {
+        console.error('獲取設備列表失敗:', error);
+        return [];
+    }
 }
 
 // 新增/編輯客戶表單加入設備下拉選單與新增設備按鈕
@@ -3349,6 +3484,8 @@ setTimeout(() => {
 
 // 客戶操作函數
 async function editCustomer(customerId) {
+    console.log('開始編輯客戶:', customerId);
+    
     // 首先嘗試從 allCustomersCache 獲取客戶
     let customer = allCustomersCache.find(c => c.id === customerId);
     
@@ -3357,22 +3494,51 @@ async function editCustomer(customerId) {
         customer = window.customerCardSystem.allCustomers.find(c => c.id === customerId);
     }
     
+    // 如果還是沒有找到，嘗試從全局變量獲取
+    if (!customer && window.allCustomers) {
+        customer = window.allCustomers.find(c => c.id === customerId);
+    }
+    
     if (customer) {
-        await fillEditForm(customer);
-        const editModal = document.getElementById('edit-modal');
-        if (editModal) {
-            editModal.style.display = 'flex';
-            editModal.classList.add('active');
-        } else {
-            // 如果找不到編輯模態框，使用簡單編輯方式
-            if (window.customerCardSystem) {
-                window.customerCardSystem.showSimpleEditModal(customer);
+        console.log('找到客戶資料:', customer);
+        try {
+            await fillEditForm(customer);
+            const editModal = document.getElementById('edit-modal');
+            if (editModal) {
+                editModal.style.display = 'flex';
+                editModal.classList.add('active');
+                
+                // 確保表單提交事件正確綁定
+                const form = document.getElementById('edit-customer-form');
+                if (form) {
+                    // 移除舊的事件監聽器
+                    form.removeEventListener('submit', handleEditFormSubmit);
+                    // 添加新的事件監聽器
+                    form.addEventListener('submit', handleEditFormSubmit);
+                }
+            } else {
+                console.error('找不到編輯模態框');
+                // 如果找不到編輯模態框，使用簡單編輯方式
+                if (window.customerCardSystem) {
+                    window.customerCardSystem.showSimpleEditModal(customer);
+                }
             }
+        } catch (error) {
+            console.error('填充編輯表單時出錯:', error);
+            showNotification('載入客戶資料失敗', 'error');
         }
     } else {
         console.error('找不到客戶:', customerId);
         showNotification('找不到客戶資料', 'error');
     }
+}
+
+// 處理編輯表單提交
+function handleEditFormSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const customerId = form.querySelector('input[name="id"]').value;
+    submitEditForm(customerId);
 }
 
 function deleteCustomer(customerId) {
@@ -3494,15 +3660,31 @@ async function submitEditForm(customerId) {
         rent: parseFloat(formData.get('rent')),
         bank: formData.get('bank') || null,
         bankAccountNumber: formData.get('bankAccountNumber') || null,
-        salesperson: formData.get('salesperson') || null
+        bankAccountName: formData.get('bankAccountName') || null, // 添加银行户名字段
+        salesId: formData.get('salesId') || null, // 添加设备ID字段
+        nextDueOverride: formData.get('nextDueOverride') || null // 添加下次应缴日覆盖字段
     };
 
     try {
-        const response = await fetch(`/api/customers/${customerId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updateData)
-        });
+        // 检查是否有文件上传
+        const hasFiles = formData.get('idFront') || formData.get('idBack') || 
+                        formData.get('billPhoto') || formData.get('contractPdf');
+        
+        let response;
+        if (hasFiles) {
+            // 如果有文件上传，使用 FormData
+            response = await fetch(`/api/customers/${customerId}`, {
+                method: 'PUT',
+                body: formData // 直接发送 FormData
+            });
+        } else {
+            // 如果没有文件上传，使用 JSON
+            response = await fetch(`/api/customers/${customerId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updateData)
+            });
+        }
 
         const result = await response.json();
         if (result.success) {
@@ -3538,7 +3720,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 暴露 main.js 的編輯函數到全局
 window.mainEditCustomer = editCustomer;
-window.editCustomer = editCustomer;
 
 // 獲取建議類型
 function getSuggestionType(suggestion) {
