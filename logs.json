@@ -697,5 +697,269 @@
       "nextDueOverride": "",
       "fileOps": []
     }
+  },
+  {
+    "timestamp": "2025-08-12T10:10:46.999Z",
+    "user": "admin",
+    "action": "新增客戶",
+    "customerId": "1754993446995",
+    "customerName": "陳首安",
+    "detail": {
+      "id": "1754993446995",
+      "name": "陳首安",
+      "idNumber": "B126318465",
+      "phone": "0916157144",
+      "birthday": "",
+      "occupation": "廚師",
+      "source": "f",
+      "emergencyContactName": "",
+      "emergencyContactPhone": "",
+      "city": "台中市",
+      "district": "大里區",
+      "street": "塗城路713巷11之7號",
+      "currentAddress": "台中市大里區大明路466號",
+      "model": "iPhone 13 Pro 256GB",
+      "imei": "352544471782137",
+      "serialNumber": "H3H9K9MGKQ",
+      "screenPassword": "5287",
+      "contractDate": "2025-08-12",
+      "paymentCycleDays": "7",
+      "salePrice": "7000",
+      "rent": "2100",
+      "bank": "中國信託",
+      "bankAccountName": "陳首安",
+      "bankAccountNumber": "901560175147",
+      "salesId": "1746774964553",
+      "address": "台中市大里區塗城路713巷11之7號",
+      "status": "renting",
+      "createdAt": "2025-08-12T10:10:46.995Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [],
+      "firstDealDate": "2025-08-12",
+      "dealCount": 1,
+      "isNameMatch": true
+    }
+  },
+  {
+    "timestamp": "2025-08-12T10:42:20.018Z",
+    "user": "admin",
+    "action": "新增客戶",
+    "customerId": "1754995340016",
+    "customerName": "陳宏榮",
+    "detail": {
+      "id": "1754995340016",
+      "name": "陳宏榮",
+      "idNumber": "T123665702",
+      "phone": "0968099557",
+      "birthday": "",
+      "occupation": "魚市場員工",
+      "source": "FACEBOOK",
+      "emergencyContactName": "",
+      "emergencyContactPhone": "",
+      "city": "屏東縣",
+      "district": "林邊鄉",
+      "street": "豐漁路30號",
+      "currentAddress": "枋寮鄉保生路437號",
+      "model": "iPhone 12 128GB",
+      "imei": "359195675699420",
+      "serialNumber": "QQQHK46W0Y",
+      "screenPassword": "",
+      "contractDate": "2025-08-12",
+      "paymentCycleDays": "7",
+      "salePrice": "5000",
+      "rent": "1540",
+      "bank": "連線商業銀行",
+      "bankAccountName": "陳宏榮",
+      "bankAccountNumber": "111020179719",
+      "salesId": "",
+      "address": "屏東縣林邊鄉豐漁路30號",
+      "status": "renting",
+      "createdAt": "2025-08-12T10:42:20.016Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [],
+      "firstDealDate": "2025-08-12",
+      "dealCount": 1,
+      "isNameMatch": true
+    }
+  },
+  {
+    "timestamp": "2025-08-12T10:52:32.795Z",
+    "user": "admin",
+    "action": "新增繳款",
+    "customerId": "1754993446995",
+    "customerName": "陳首安",
+    "detail": {
+      "payment": {
+        "date": "2025-08-12T00:00:00.000Z",
+        "amount": 2100,
+        "note": ""
+      }
+    }
+  },
+  {
+    "timestamp": "2025-08-12T10:52:44.353Z",
+    "user": "admin",
+    "action": "新增繳款",
+    "customerId": "1754995340016",
+    "customerName": "陳宏榮",
+    "detail": {
+      "payment": {
+        "date": "2025-08-12T00:00:00.000Z",
+        "amount": 1540,
+        "note": ""
+      }
+    }
+  },
+  {
+    "timestamp": "2025-08-12T11:10:57.680Z",
+    "user": "admin",
+    "action": "新增客戶",
+    "customerId": "1754997057678",
+    "customerName": "蔡雅雯",
+    "detail": {
+      "id": "1754997057678",
+      "name": "蔡雅雯",
+      "idNumber": "L224043518",
+      "phone": "0985031046",
+      "birthday": "",
+      "occupation": "美聯社正職",
+      "source": "FACEBOOK",
+      "emergencyContactName": "",
+      "emergencyContactPhone": "",
+      "city": "高雄市",
+      "district": "三民區",
+      "street": "大昌二路378號五樓",
+      "currentAddress": "高雄市三民區北平一街118號",
+      "model": "iPhone 16 128GB",
+      "imei": "351128296949732",
+      "serialNumber": "H9TWDQXPKX",
+      "screenPassword": "",
+      "contractDate": "2025-08-12",
+      "paymentCycleDays": "7",
+      "salePrice": "13000",
+      "rent": "3150",
+      "bank": "台新銀行",
+      "bankAccountName": "蔡雅雯",
+      "bankAccountNumber": "20150100918554",
+      "salesId": "1746774964553",
+      "address": "高雄市三民區大昌二路378號五樓",
+      "status": "renting",
+      "createdAt": "2025-08-12T11:10:57.678Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [],
+      "firstDealDate": "2025-08-12",
+      "dealCount": 1,
+      "isNameMatch": true
+    }
+  },
+  {
+    "timestamp": "2025-08-12T11:11:03.697Z",
+    "user": "admin",
+    "action": "新增繳款",
+    "customerId": "1754997057678",
+    "customerName": "蔡雅雯",
+    "detail": {
+      "payment": {
+        "date": "2025-08-12T00:00:00.000Z",
+        "amount": 3150,
+        "note": ""
+      }
+    }
+  },
+  {
+    "timestamp": "2025-08-12T12:17:53.320Z",
+    "user": "admin",
+    "action": "新增客戶",
+    "customerId": "1755001073316",
+    "customerName": "穆冠宇",
+    "detail": {
+      "id": "1755001073316",
+      "name": "穆冠宇",
+      "idNumber": "T124088816",
+      "phone": "0911671021",
+      "birthday": "",
+      "occupation": "務農",
+      "source": "FACEBOOK",
+      "emergencyContactName": "",
+      "emergencyContactPhone": "",
+      "city": "屏東縣",
+      "district": "內埔鄉",
+      "street": "竹圍村18鄰永定巷116號",
+      "currentAddress": "屏東縣內埔鄉竹圍村永定巷116號",
+      "model": "iPhone 14 Pro 128GB",
+      "imei": "351553266462350",
+      "serialNumber": "D7TC6356GY",
+      "screenPassword": "3356",
+      "contractDate": "2025-08-12",
+      "paymentCycleDays": "7",
+      "salePrice": "8800",
+      "rent": "2660",
+      "bank": "兆豐銀行",
+      "bankAccountName": "穆冠宇",
+      "bankAccountNumber": "05310662247",
+      "salesId": "1746774964553",
+      "address": "屏東縣內埔鄉竹圍村18鄰永定巷116號",
+      "status": "renting",
+      "createdAt": "2025-08-12T12:17:53.316Z",
+      "idFront": "",
+      "idBack": "",
+      "billPhoto": "",
+      "contractPdf": "",
+      "payments": [],
+      "firstDealDate": "2025-08-12",
+      "dealCount": 1,
+      "isNameMatch": true
+    }
+  },
+  {
+    "timestamp": "2025-08-12T12:18:03.393Z",
+    "user": "admin",
+    "action": "新增繳款",
+    "customerId": "1755001073316",
+    "customerName": "穆冠宇",
+    "detail": {
+      "payment": {
+        "date": "2025-08-12T00:00:00.000Z",
+        "amount": 2660,
+        "note": ""
+      }
+    }
+  },
+  {
+    "timestamp": "2025-08-12T12:21:53.587Z",
+    "user": "admin",
+    "action": "新增繳款",
+    "customerId": "1755001073316",
+    "customerName": "穆冠宇",
+    "detail": {
+      "payment": {
+        "date": "2025-08-12T00:00:00.000Z",
+        "amount": 2660,
+        "note": ""
+      }
+    }
+  },
+  {
+    "timestamp": "2025-08-12T12:22:09.348Z",
+    "user": "admin",
+    "action": "刪除繳款紀錄",
+    "customerId": "1755001073316",
+    "customerName": "穆冠宇",
+    "detail": {
+      "removed": {
+        "date": "2025-08-12T00:00:00.000Z",
+        "amount": 2660,
+        "note": ""
+      }
+    }
   }
 ]
